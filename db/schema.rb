@@ -11,97 +11,82 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20160614225900) do
+ActiveRecord::Schema.define(version: 20160627230645) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
 
-  create_table "categories", force: :cascade do |t|
-    t.string   "name"
-    t.datetime "created_at", null: false
-    t.datetime "updated_at", null: false
-    t.string   "slug"
+  create_table "category_charities", force: :cascade do |t|
+    t.string "name"
   end
 
-  create_table "category_families", force: :cascade do |t|
-    t.integer  "family_id"
-    t.integer  "category_id"
-    t.datetime "created_at",  null: false
-    t.datetime "updated_at",  null: false
+  create_table "category_events", force: :cascade do |t|
+    t.string "name"
   end
 
-  add_index "category_families", ["category_id"], name: "index_category_families_on_category_id", using: :btree
-  add_index "category_families", ["family_id"], name: "index_category_families_on_family_id", using: :btree
+  create_table "charities", force: :cascade do |t|
+    t.string  "name"
+    t.string  "description"
+    t.integer "category_charity_id"
+  end
+
+  add_index "charities", ["category_charity_id"], name: "index_charities_on_category_charity_id", using: :btree
 
   create_table "donation_items", force: :cascade do |t|
-    t.integer  "quantity"
-    t.integer  "supply_item_id"
-    t.datetime "created_at",     null: false
-    t.datetime "updated_at",     null: false
+    t.integer  "ticket_quantity"
+    t.datetime "created_at",      null: false
+    t.datetime "updated_at",      null: false
     t.integer  "donation_id"
+    t.integer  "event_item_id"
   end
 
   add_index "donation_items", ["donation_id"], name: "index_donation_items_on_donation_id", using: :btree
-  add_index "donation_items", ["supply_item_id"], name: "index_donation_items_on_supply_item_id", using: :btree
+  add_index "donation_items", ["event_item_id"], name: "index_donation_items_on_event_item_id", using: :btree
 
   create_table "donations", force: :cascade do |t|
     t.integer  "user_id"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
-    t.string   "status"
   end
 
   add_index "donations", ["user_id"], name: "index_donations_on_user_id", using: :btree
 
-  create_table "families", force: :cascade do |t|
-    t.string   "first_name"
-    t.string   "last_name"
-    t.date     "arrival_date"
-    t.datetime "created_at",                null: false
-    t.datetime "updated_at",                null: false
-    t.integer  "num_married_adults"
-    t.integer  "num_unmarried_adults"
-    t.integer  "num_children_over_two"
-    t.integer  "num_children_under_two"
-    t.date     "donation_deadline"
-    t.integer  "nationality_id"
-    t.string   "description"
-    t.string   "family_photo_file_name"
-    t.string   "family_photo_content_type"
-    t.integer  "family_photo_file_size"
-    t.datetime "family_photo_updated_at"
-  end
-
-  add_index "families", ["nationality_id"], name: "index_families_on_nationality_id", using: :btree
-
-  create_table "nationalities", force: :cascade do |t|
-    t.string   "photo_path"
-    t.string   "info_link"
-    t.string   "greeting"
-    t.datetime "created_at", null: false
-    t.datetime "updated_at", null: false
-    t.string   "name"
-  end
-
-  create_table "supplies", force: :cascade do |t|
-    t.string   "name"
-    t.string   "description"
-    t.decimal  "value"
+  create_table "event_items", force: :cascade do |t|
+    t.integer  "ticket_quantity"
     t.datetime "created_at",      null: false
     t.datetime "updated_at",      null: false
-    t.string   "multiplier_type"
+    t.integer  "event_id"
+    t.integer  "recipient_id"
   end
 
-  create_table "supply_items", force: :cascade do |t|
-    t.integer  "supply_id"
-    t.integer  "family_id"
-    t.integer  "quantity"
-    t.datetime "created_at", null: false
-    t.datetime "updated_at", null: false
+  add_index "event_items", ["event_id"], name: "index_event_items_on_event_id", using: :btree
+  add_index "event_items", ["recipient_id"], name: "index_event_items_on_recipient_id", using: :btree
+
+  create_table "events", force: :cascade do |t|
+    t.string   "name"
+    t.string   "description"
+    t.decimal  "ticket_price"
+    t.datetime "created_at",        null: false
+    t.datetime "updated_at",        null: false
+    t.datetime "date"
+    t.integer  "category_event_id"
   end
 
-  add_index "supply_items", ["family_id"], name: "index_supply_items_on_family_id", using: :btree
-  add_index "supply_items", ["supply_id"], name: "index_supply_items_on_supply_id", using: :btree
+  add_index "events", ["category_event_id"], name: "index_events_on_category_event_id", using: :btree
+
+  create_table "recipients", force: :cascade do |t|
+    t.string   "name"
+    t.datetime "created_at",                   null: false
+    t.datetime "updated_at",                   null: false
+    t.string   "description"
+    t.string   "recipient_photo_file_name"
+    t.string   "recipient_photo_content_type"
+    t.integer  "recipient_photo_file_size"
+    t.datetime "recipient_photo_updated_at"
+    t.integer  "charity_id"
+  end
+
+  add_index "recipients", ["charity_id"], name: "index_recipients_on_charity_id", using: :btree
 
   create_table "users", force: :cascade do |t|
     t.string   "username"
@@ -109,16 +94,15 @@ ActiveRecord::Schema.define(version: 20160614225900) do
     t.datetime "created_at",                  null: false
     t.datetime "updated_at",                  null: false
     t.integer  "role",            default: 0
-    t.string   "cell"
     t.string   "email"
   end
 
-  add_foreign_key "category_families", "categories"
-  add_foreign_key "category_families", "families"
+  add_foreign_key "charities", "category_charities"
   add_foreign_key "donation_items", "donations"
-  add_foreign_key "donation_items", "supply_items"
+  add_foreign_key "donation_items", "event_items"
   add_foreign_key "donations", "users"
-  add_foreign_key "families", "nationalities"
-  add_foreign_key "supply_items", "families"
-  add_foreign_key "supply_items", "supplies"
+  add_foreign_key "event_items", "events"
+  add_foreign_key "event_items", "recipients"
+  add_foreign_key "events", "category_events"
+  add_foreign_key "recipients", "charities"
 end
