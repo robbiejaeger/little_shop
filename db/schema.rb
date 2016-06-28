@@ -11,37 +11,39 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20160627230645) do
+ActiveRecord::Schema.define(version: 20160628204947) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
 
-  create_table "category_charities", force: :cascade do |t|
+  create_table "causes", force: :cascade do |t|
     t.string "name"
   end
 
-  create_table "category_events", force: :cascade do |t|
-    t.string "name"
+  create_table "causes_charities", id: false, force: :cascade do |t|
+    t.integer "cause_id",   null: false
+    t.integer "charity_id", null: false
   end
 
   create_table "charities", force: :cascade do |t|
-    t.string  "name"
-    t.string  "description"
-    t.integer "category_charity_id"
+    t.string   "name"
+    t.string   "description"
+    t.string   "charity_photo_file_name"
+    t.string   "charity_photo_content_type"
+    t.integer  "charity_photo_file_size"
+    t.datetime "charity_photo_updated_at"
   end
 
-  add_index "charities", ["category_charity_id"], name: "index_charities_on_category_charity_id", using: :btree
-
   create_table "donation_items", force: :cascade do |t|
-    t.integer  "ticket_quantity"
-    t.datetime "created_at",      null: false
-    t.datetime "updated_at",      null: false
+    t.integer  "quantity"
+    t.datetime "created_at",   null: false
+    t.datetime "updated_at",   null: false
     t.integer  "donation_id"
-    t.integer  "event_item_id"
+    t.integer  "need_item_id"
   end
 
   add_index "donation_items", ["donation_id"], name: "index_donation_items_on_donation_id", using: :btree
-  add_index "donation_items", ["event_item_id"], name: "index_donation_items_on_event_item_id", using: :btree
+  add_index "donation_items", ["need_item_id"], name: "index_donation_items_on_need_item_id", using: :btree
 
   create_table "donations", force: :cascade do |t|
     t.integer  "user_id"
@@ -51,28 +53,33 @@ ActiveRecord::Schema.define(version: 20160627230645) do
 
   add_index "donations", ["user_id"], name: "index_donations_on_user_id", using: :btree
 
-  create_table "event_items", force: :cascade do |t|
-    t.integer  "ticket_quantity"
-    t.datetime "created_at",      null: false
-    t.datetime "updated_at",      null: false
-    t.integer  "event_id"
+  create_table "need_items", force: :cascade do |t|
+    t.integer  "quantity"
+    t.datetime "created_at",   null: false
+    t.datetime "updated_at",   null: false
     t.integer  "recipient_id"
+    t.datetime "deadline"
+    t.integer  "need_id"
   end
 
-  add_index "event_items", ["event_id"], name: "index_event_items_on_event_id", using: :btree
-  add_index "event_items", ["recipient_id"], name: "index_event_items_on_recipient_id", using: :btree
+  add_index "need_items", ["need_id"], name: "index_need_items_on_need_id", using: :btree
+  add_index "need_items", ["recipient_id"], name: "index_need_items_on_recipient_id", using: :btree
 
-  create_table "events", force: :cascade do |t|
+  create_table "needs", force: :cascade do |t|
     t.string   "name"
     t.string   "description"
-    t.decimal  "ticket_price"
+    t.decimal  "price"
     t.datetime "created_at",        null: false
     t.datetime "updated_at",        null: false
     t.datetime "date"
-    t.integer  "category_event_id"
+    t.integer  "needs_category_id"
   end
 
-  add_index "events", ["category_event_id"], name: "index_events_on_category_event_id", using: :btree
+  add_index "needs", ["needs_category_id"], name: "index_needs_on_needs_category_id", using: :btree
+
+  create_table "needs_categories", force: :cascade do |t|
+    t.string "name"
+  end
 
   create_table "recipients", force: :cascade do |t|
     t.string   "name"
@@ -97,12 +104,11 @@ ActiveRecord::Schema.define(version: 20160627230645) do
     t.string   "email"
   end
 
-  add_foreign_key "charities", "category_charities"
   add_foreign_key "donation_items", "donations"
-  add_foreign_key "donation_items", "event_items"
+  add_foreign_key "donation_items", "need_items"
   add_foreign_key "donations", "users"
-  add_foreign_key "event_items", "events"
-  add_foreign_key "event_items", "recipients"
-  add_foreign_key "events", "category_events"
+  add_foreign_key "need_items", "needs"
+  add_foreign_key "need_items", "recipients"
+  add_foreign_key "needs", "needs_categories"
   add_foreign_key "recipients", "charities"
 end
