@@ -1,6 +1,6 @@
-class SupplyItem < ActiveRecord::Base
-  belongs_to :supply
-  belongs_to :family
+class NeedItem < ActiveRecord::Base
+  belongs_to :need
+  belongs_to :recipient
   has_many :donation_items
 
   def self.find_family(id)

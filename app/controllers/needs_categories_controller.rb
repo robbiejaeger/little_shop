@@ -1,0 +1,2 @@
+class NeedsCategoriesController < ApplicationController
+end
