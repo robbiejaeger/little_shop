@@ -1,6 +1,4 @@
 class Donation < ActiveRecord::Base
-  validates :status, presence: true, inclusion: %w(Pledged Received Cancelled)
-
   belongs_to :user
   has_many :donation_items
 
@@ -20,6 +18,6 @@ class Donation < ActiveRecord::Base
     money_raised =  Donation.all.reduce(0) do |sum, donation|
       sum += donation.total
     end
-    {num_items: num_items, num_families: num_families, money_raised: money_raised.to_f}   
+    {num_items: num_items, num_families: num_families, money_raised: money_raised.to_f}
   end
 end
