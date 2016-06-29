@@ -31,10 +31,10 @@ class Seed
   def create_recipients
     100.times do
       charity = Charity.find(Random.rand(1..20))
-      Recipient.create(
+      Recipient.create!(
       name: Faker::Name.name,
       description: Faker::Name.title,
-      charity_id: charity.id
+      charity_id: charity.id)
     end
   end
 
