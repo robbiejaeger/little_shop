@@ -1,0 +1,9 @@
+<h1><%= @charity.name %></h1>
+  <p><%= @charity.description %></p>
+
+<ul>
+  <% @charity.recipients.each do |recipient| %>
+  <li><%= recipient.name %></li>
+      <p><%= recipient.description %><p>
+  <% end %>
+</ul>
