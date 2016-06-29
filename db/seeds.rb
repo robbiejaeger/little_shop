@@ -4,10 +4,13 @@ class Seed
     create_causes
     create_charities
     create_need_categories
-    create_needs
     create_users
+    create_needs
     create_donations
     create_recipients
+    create_donations
+    create_need_items
+    create_donation_items
   end
 
   def create_charities
@@ -18,7 +21,7 @@ class Seed
       )
       rand(1..3).times do
         cause = Cause.find(rand(1..10))
-        if !charity.causes.includes(cause)
+        if !charity.causes.include?(cause)
           charity.causes << cause
         end
       end
@@ -36,7 +39,7 @@ class Seed
   end
 
   def create_users
-    user = User.create(username: "jmejia@turing.io", password: "password")
+    user = User.create!(username: "jmejia@turing.io", password: "password", email: "jmejia@turing.io")
     99.times do
       User.create!(
       username: Faker::Internet.user_name,
@@ -50,15 +53,24 @@ class Seed
     100.times do
       user = User.find(Random.new.rand(1..100))
       donation = Donation.create!(user_id: user.id)
-      add_needs(donation)
     end
   end
 
 
-  def create_donation_items(donation)
-    10.times do
-      donation_item = DonationItem.find(Random.new.rand(1..500))
-      donation.needs << need
+  def create_donation_items
+    500.times do
+      donation = Donation.find(Random.new.rand(1..100))
+      need_item = NeedItem.find(Random.rand(1..100))
+      DonationItem.create!(donation_id: donation.id, quantity: rand(1..10), need_item_id: need_item.id)
+    end
+  end
+
+  def create_need_items
+    100.times do
+      need = Need.find(Random.new.rand(1..500))
+      recipient = Recipient.find(Random.new.rand(1..100))
+      NeedItem.create!(deadline: Faker::Date.forward(25), quantity: rand(1..30), recipient_id: recipient.id,
+      need_id: need.id)
     end
   end
 
@@ -80,11 +92,13 @@ class Seed
 
   def create_needs
     500.times do
+      needs_category = NeedsCategory.find(Random.new.rand(1..10))
       Need.create!(
       name: Faker::Commerce.product_name,
       description: Faker::Commerce.color,
       price: Faker::Commerce.price,
-      needs_category_id: NeedsCategory.find(Random.new.rand(1..10))
+      needs_category_id: needs_category.id,
+      date: Faker::Date.forward(25)
       )
     end
   end
