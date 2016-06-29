@@ -1,8 +1,10 @@
 class HomesController < ApplicationController
 
+  def index
+    @charities = Charity.all 
+  end
+
   def show
-    @categories = Category.all
-    @donation_stats = Donation.stats
-    @tweets = TwitterApi.get_tweets
+    @charities = Charity.all
   end
 end

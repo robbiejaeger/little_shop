@@ -22,7 +22,9 @@ Rails.application.routes.draw do
 
   resources :homes, only: [:show]
 
-  root to: "homes#show"
+  root to: "homes#index"
+
+  resources :charities, only: [:index, :show]
 
   resources :categories, only: [:show], path: ""
 end
