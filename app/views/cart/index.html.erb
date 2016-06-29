@@ -4,6 +4,7 @@
   <table class="table table-hover">
     <tr class="active">
       <th>Item</th>
+      <th>Charity</th>
       <th>Description</th>
       <th>Price</th>
       <th>Subtotal</th>
@@ -15,7 +16,8 @@
     <% @cart_items.each do |cart_item| %>
     <tr>
 
-      <td><%= link_to cart_item.name, charity_recipient_path(cart_item.recipient.charity, cart_item.recipient) %></td>
+      <td><%= link_to cart_item.name, charity_recipient_path(cart_item.charity, cart_item.recipient) %></td>
+      <td><%= link_to cart_item.name, charity_recipient_path(cart_item.charity, cart_item.recipient)%></td>
       <td><%= cart_item.description %></td>
       <td><%= currency cart_item.price %></td>
       <td><%= currency cart_item.subtotal(cart_item.quantity) %></td>
