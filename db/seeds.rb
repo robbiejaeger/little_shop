@@ -8,9 +8,9 @@ class Seed
     create_needs
     create_donations
     create_recipients
+    create_donations
     create_need_items
     create_donation_items
-    create_donations
   end
 
   def create_charities
@@ -59,15 +59,19 @@ class Seed
 
   def create_donation_items
     donation = Donation.find(Random.new.rand(1..100))
+    need_item =
     10.times do
-      DonationItem.create!(donation_id: donation.id, quantity: rand(1..10), need_item_id: NeedItem.find(Random.rand(1..100)))
+      need_item = NeedItem.find(Random.rand(1..100))
+      DonationItem.create!(donation_id: donation.id, quantity: rand(1..10), need_item_id: need_item.id)
     end
   end
 
   def create_need_items
     100.times do
-      NeedItem.create!(quantity: rand(1..30), recipient_id: Recipient.find(Random.new.rand(1..100)),
-      need_id: Need.find(Random.new.rand(1..500)))
+      need = Need.find(Random.new.rand(1..500))
+      recipient = Recipient.find(Random.new.rand(1..100))
+      NeedItem.create!(deadline: Faker::Date.forward(25), quantity: rand(1..30), recipient_id: recipient.id,
+      need_id: need.id)
     end
   end
 
@@ -89,11 +93,13 @@ class Seed
 
   def create_needs
     500.times do
+      needs_category = NeedsCategory.find(Random.new.rand(1..10))
       Need.create!(
       name: Faker::Commerce.product_name,
       description: Faker::Commerce.color,
       price: Faker::Commerce.price,
-      needs_category_id: NeedsCategory.find(Random.new.rand(1..10))
+      needs_category_id: needs_category.id,
+      date: Faker::Date.forward(25)
       )
     end
   end
