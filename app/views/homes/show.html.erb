@@ -3,4 +3,10 @@
 <% @causes.each do |cause| %>
     <li> <%= button_to cause.name, cause_path(cause.slug), method: :get %> </li>
   <% end %>
-  </ul>
+</ul>
+
+<ul>
+<% @needs_categories.each do |needs_category| %>
+    <li> <%= button_to needs_category.name, needs_category_path(needs_category.slug), method: :get %> </li>
+  <% end %>
+</ul>
