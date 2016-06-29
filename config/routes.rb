@@ -20,12 +20,12 @@ Rails.application.routes.draw do
 
   resources :homes, only: [:show]
 
-  root to: "homes#index"
+  root to: "homes#show"
 
   resources :charities, only: [:index]
 
   get ':charity_slug', to: 'charities#show', as: :charity
-
+  get 'causes/:causes_slug', to: 'causes#show', as: :cause
   namespace :charity,  path: ':charity', as: :charity do
     resources :recipients, only: :show
   end
