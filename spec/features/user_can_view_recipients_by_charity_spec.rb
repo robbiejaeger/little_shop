@@ -22,4 +22,5 @@ RSpec.feature "User Can View the Recipients by Charity" do
   click_on "#{recipient_one.name}"
   expect(current_path).to eq(charity_recipient_path(recipient_one.charity.slug, recipient_one))
   end
+
 end

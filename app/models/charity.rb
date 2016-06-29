@@ -12,4 +12,14 @@ class Charity < ActiveRecord::Base
     self.slug = self.name.parameterize
   end
 
+  def associated_recipient?(recipient_id)
+    recipient_ids = recipients.pluck(:id)
+    # byebug
+    if recipient_ids.include?(recipient_id)
+      true
+    else
+      false
+    end
+  end
+
 end

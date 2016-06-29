@@ -116,4 +116,17 @@ RSpec.feature "user sees correct info for recipients" do
 
   end
 
+
+
+    scenario "they don't see a recipient for another charity through the charity path" do
+      charity, other_charity = create_list(:charity, 2)
+      other_recipient = other_charity.recipients.create(name: "test", description: "test")
+
+      visit charity_recipient_path(charity.slug, other_recipient)
+
+      expect(current_path).to eq(charity_path(charity.slug))
+      expect(page).to have_content("Recipient not found")
+
+    end
+
 end
