@@ -1,0 +1,46 @@
+<div class="recipient-info">
+  <h4><%= @recipient.name  %> </h4>
+  <p><%= @recipient.description %></p>
+</div>
+
+<div class="charity-info">
+  <h4><%= @charity.name  %> </h4>
+  <p><%= @charity.description %></p>
+</div>
+
+<% if !@items.empty? %>
+  <div class="col-sm-10 col-sm-offset-1 current-needs">
+
+    <h4><%=@recipient.name %> needs the following donations:</h4>
+    <table class="table">
+      <tr>
+        <th>Donation Item</th>
+        <th>Cost</th>
+        <th>Quantity</th>
+        <th></th>
+      </tr>
+
+    <% @items.each do |item| %>
+      <% if item.quantity_remaining > 0 %>
+        <%= form_for item, url: cart_items_path, method: :create do |f| %>
+          <div class='<%= item.name %>' >
+            <tr>
+              <td><%= item.name %></br>
+              <em><%= item.description %></em></td>
+              <td><%= currency(item.need.price) %></td>
+              <td><%= f.hidden_field :id, :value => item.id %>
+                <div class="form-group">
+                  <%= f.select(:quantity, (0..item.quantity_remaining), { :prompt => '0'}, { class: 'form-control' }) %>
+                </div>
+              </td>
+              <td><%= f.submit 'add to cart', class: "btn btn-warning"%></td>
+            </tr>
+          </div>
+        <% end %>
+      <% end %>
+    <% end %>
+    </table>
+  </div>
+<% else %>
+  <h4><%= @recipient.name %> has no current donation needs</h4>
+<% end  %>

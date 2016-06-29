@@ -1,28 +1,19 @@
-class Family < ActiveRecord::Base
-  validates :first_name, presence: true
-  validates :last_name, presence: true
-  validates :arrival_date, presence: true
-  validates :num_married_adults, presence: true
-  validates :num_unmarried_adults, presence: true
-  validates :num_children_over_two, presence: true
-  validates :num_children_under_two, presence: true
-  validates :donation_deadline, presence: true
+class Recipient < ActiveRecord::Base
+  validates :name, presence: true
+  validates :description, presence: true
 
-  has_many :category_families
-  has_many :categories, through: :category_families
-  has_many :supply_items
-  has_many :supplies, through: :supply_items
-  has_many :donation_items, through: :supply_items
-  belongs_to :nationality
+  has_many :need_items
+  has_many :donation_items, through: :need_items
+  belongs_to :charity
+  belongs_to :charity
 
-  has_attached_file :family_photo, styles: {
+  has_attached_file :recipient_photo, styles: {
     thumb: '100x100>',
     square: '200x200#',
     medium: '300x300>',
     large: '600x600>'
   }
-
-  validates_attachment_content_type :family_photo, :content_type => /\Aimage\/.*\Z/
+  validates_attachment_content_type :recipient_photo, :content_type => /\Aimage\/.*\Z/
 
   scope :retired, -> {where("arrival_date < ?", Date.today)}
   scope :active, -> {where("arrival_date > ?", Date.today)}

@@ -6,7 +6,6 @@ class User < ActiveRecord::Base
   validates :password, presence: true
   validates :role, presence: true
   validate :password_correct?, on: :update
-  validates :cell, format: { with: /\d{10}/, message: "was not in correct format of 1112223333" }, :allow_blank => true
 
   has_many :donations
   has_many :donation_items, through: :donations

@@ -4,8 +4,6 @@ Rails.application.routes.draw do
     resources :families, only: [:show, :new, :create, :index, :update]
   end
 
-  resources :families, only: [:index, :show]
-
   resources :users, only: [:new, :create, :edit, :update]
 
   resources :cart, only: [:index]
@@ -24,5 +22,15 @@ Rails.application.routes.draw do
 
   root to: "homes#show"
 
-  resources :categories, only: [:show], path: ""
+  resources :charities, only: [:index]
+
+  get ':charity_slug', to: 'charities#show', as: :charity
+  get 'causes/:causes_slug', to: 'causes#show', as: :cause
+  get 'needs_category/:needs_category_slug', to: 'needs_categories#show', as: :needs_category
+
+  namespace :charity,  path: ':charity', as: :charity do
+    resources :recipients, only: :show
+  end
+
+  # resources :categories, only: [:show], path: ""
 end
