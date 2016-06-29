@@ -58,9 +58,8 @@ class Seed
 
 
   def create_donation_items
-    donation = Donation.find(Random.new.rand(1..100))
-    need_item =
-    10.times do
+    500.times do
+      donation = Donation.find(Random.new.rand(1..100))
       need_item = NeedItem.find(Random.rand(1..100))
       DonationItem.create!(donation_id: donation.id, quantity: rand(1..10), need_item_id: need_item.id)
     end
