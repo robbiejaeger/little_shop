@@ -1,11 +1,11 @@
 class CartItemsController < ApplicationController
 
   def create
-    supply_item = SupplyItem.find(params[:supply_item][:id])
-    @cart.add_cart_item(supply_item.id, params[:supply_item][:quantity])
+    need_item = NeedItem.find(params[:need_item][:id])
+    @cart.add_cart_item(need_item.id, params[:need_item][:quantity])
     session[:cart] = @cart.contents
-    flash[:success] = "You added #{supply_item.name}"
-    redirect_to family_path(supply_item.family)
+    flash[:success] = "You added #{need_item.name}"
+    redirect_to charity_recipient_path(need_item.recipient.charity.slug, need_item.recipient)
   end
 
   def update

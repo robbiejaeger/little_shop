@@ -1,10 +1,10 @@
 class CartItemHandler < SimpleDelegator
 
-  attr_reader :supply_item, :quantity
+  attr_reader :need_item, :quantity
 
-  def initialize(supply_item_id, quantity)
-    @supply_item  = SupplyItem.find(supply_item_id)
+  def initialize(need_item_id, quantity)
+    @need_item  = NeedItem.find(need_item_id)
     @quantity = quantity
-    super(@supply_item)
+    super(@need_item)
   end
 end
