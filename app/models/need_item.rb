@@ -3,20 +3,23 @@ class NeedItem < ActiveRecord::Base
   belongs_to :recipient
   has_many :donation_items
 
-  def self.find_family(id)
-    find(id).family
-  end
+  scope :retired, -> {where("deadline < ?", Date.today)}
+  scope :active, -> {where("deadline > ?", Date.today)}
+
+  # def self.find_family(id)
+  #   find(id).family
+  # end
 
   def name
-    supply.name
+    need.name
   end
 
   def description
-    supply.description
+    need.description
   end
 
-  def value
-    supply.value
+  def price
+    need.price
   end
 
   def quantity_remaining
@@ -24,6 +27,6 @@ class NeedItem < ActiveRecord::Base
   end
 
   def subtotal(quantity)
-    supply.value * quantity
+    price * quantity
   end
 end
