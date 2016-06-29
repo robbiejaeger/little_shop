@@ -3,27 +3,27 @@ require 'rails_helper'
 RSpec.feature  "testing factories" do
   scenario "test it makes a cause" do
     cause = create(:cause)
-    expect(cause.name).to eq("1 Cause")
+    expect(cause.name).to eq("Cause-1")
     expect(Cause.count).to eq(1)
   end
 
   scenario "test it makes a charity" do
     charity_one, charity_two, charity_three = create_list(:charity, 3)
-    expect(charity_two.name).to eq("2 Charity")
-    expect(charity_two.description).to eq("This is description for 2 Charity")
+    expect(charity_two.name).to eq("Charity-2")
+    expect(charity_two.description).to eq("This is description for Charity-2")
     expect(Charity.count).to eq(3)
   end
 
   scenario "test it makes a needs_category" do
     needs_category = create(:needs_category)
-    expect(needs_category.name).to eq("1 Needs Category")
+    expect(needs_category.name).to eq("Needs-Category-1")
     expect(NeedsCategory.count).to eq(1)
   end
 
   scenario "test it makes a need" do
     need_one, need_two = create_list(:need, 2)
-    expect(need_one.name).to eq("1 Need")
-    expect(need_one.description).to eq("This is description for 1 Need")
+    expect(need_one.name).to eq("Need-1")
+    expect(need_one.description).to eq("This is description for Need-1")
     expect(need_one.needs_category).to be_a_kind_of(NeedsCategory)
     expect(need_two.needs_category).to be_a_kind_of(NeedsCategory)
     expect(need_one.price).to eq(10.0)
@@ -41,8 +41,8 @@ RSpec.feature  "testing factories" do
 
   scenario "test it makes a recipient" do
     recipient_one, recipient_two = create_list(:recipient, 2)
-    expect(recipient_one.name).to eq("1 Recipient")
-    expect(recipient_one.description).to eq("This is description for 1 Recipient")
+    expect(recipient_one.name).to eq("Recipient-1")
+    expect(recipient_one.description).to eq("This is description for Recipient-1")
     expect(recipient_one.charity).to be_a_kind_of(Charity)
     expect(Recipient.count).to eq(2)
   end
