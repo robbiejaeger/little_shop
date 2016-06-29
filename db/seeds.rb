@@ -4,10 +4,13 @@ class Seed
     create_causes
     create_charities
     create_need_categories
-    create_needs
     create_users
+    create_needs
     create_donations
     create_recipients
+    create_need_items
+    create_donation_items
+    create_donations
   end
 
   def create_charities
@@ -36,7 +39,7 @@ class Seed
   end
 
   def create_users
-    user = User.create(username: "jmejia@turing.io", password: "password")
+    user = User.create!(username: "jmejia@turing.io", password: "password", email: "jmejia@turing.io")
     99.times do
       User.create!(
       username: Faker::Internet.user_name,
@@ -50,15 +53,21 @@ class Seed
     100.times do
       user = User.find(Random.new.rand(1..100))
       donation = Donation.create!(user_id: user.id)
-      add_needs(donation)
     end
   end
 
 
-  def create_donation_items(donation)
+  def create_donation_items
+    donation = Donation.find(Random.new.rand(1..100))
     10.times do
-      donation_item = DonationItem.find(Random.new.rand(1..500))
-      donation.needs << need
+      DonationItem.create!(donation_id: donation.id, quantity: rand(1..10), need_item_id: NeedItem.find(Random.rand(1..100)))
+    end
+  end
+
+  def create_need_items
+    100.times do
+      NeedItem.create!(quantity: rand(1..30), recipient_id: Recipient.find(Random.new.rand(1..100)),
+      need_id: Need.find(Random.new.rand(1..500)))
     end
   end
 
