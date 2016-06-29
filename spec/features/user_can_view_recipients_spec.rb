@@ -12,9 +12,9 @@ RSpec.feature "User Can View the Recipients" do
 
   expect(page).to have_content("All Charities")
 
-  click_on "1 Charity"
+  click_on "Charity-1"
 
-  expect(current_path).to eq(charity_path(recipient_one.charity))
+  expect(current_path).to eq(charity_path(recipient_one.charity.slug))
 
   expect(page).to have_content(recipient_one.name)
   expect(page).to have_content(recipient_one.description)

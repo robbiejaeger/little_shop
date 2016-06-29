@@ -5,7 +5,7 @@ FactoryGirl.define do
   end
 
   sequence :cause_name do |n|
-    "#{n} Cause"
+    "Cause-#{n}"
   end
 
   factory :charity do
@@ -14,11 +14,11 @@ FactoryGirl.define do
   end
 
   sequence :charity_name do |n|
-    "#{n} Charity"
+    "Charity-#{n}"
   end
 
   sequence :charity_description do |n|
-    "This is description for #{n} Charity"
+    "This is description for Charity-#{n}"
   end
 
   factory :needs_category do
@@ -26,7 +26,7 @@ FactoryGirl.define do
   end
 
   sequence :needs_category_name do |n|
-    "#{n} Needs Category"
+    "Needs-Category-#{n}"
   end
 
 
@@ -39,11 +39,11 @@ FactoryGirl.define do
 
 
   sequence :need_name do |n|
-    "#{n} Need"
+    "Need-#{n}"
   end
 
   sequence :need_description do |n|
-    "This is description for #{n} Need"
+    "This is description for Need-#{n}"
   end
 
   sequence :need_price, [10, 20, 30].cycle do |n|
@@ -68,11 +68,11 @@ FactoryGirl.define do
 
 
   sequence :recipient_name do |n|
-    "#{n} Recipient"
+    "Recipient-#{n}"
   end
 
   sequence :recipient_description do |n|
-    "This is description for #{n} Recipient"
+    "This is description for Recipient-#{n}"
   end
 
 
