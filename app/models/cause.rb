@@ -3,4 +3,5 @@ class Cause < ActiveRecord::Base
 
   has_many :causes_charities
   has_many :charities, through: :causes_charities
+
 end
