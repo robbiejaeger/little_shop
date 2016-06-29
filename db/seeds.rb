@@ -21,7 +21,7 @@ class Seed
       )
       rand(1..3).times do
         cause = Cause.find(rand(1..10))
-        if !charity.causes.includes(cause)
+        if !charity.causes.include?(cause)
           charity.causes << cause
         end
       end
