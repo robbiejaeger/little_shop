@@ -1,0 +1,17 @@
+<h1>Needs</h1>
+<table>
+  <tr>
+    <th>Name</th>
+    <th></th>
+  </tr>
+
+<% @needs.each do |need| %>
+<tr>
+<td><%= need.name %> </td>
+<td> <%= link_to "View Details", admin_need_path(need) %> </td>
+</tr>
+<% end %>
+
+</table>
+
+<%= link_to "Add Need", new_admin_need_path %>

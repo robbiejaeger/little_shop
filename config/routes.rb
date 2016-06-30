@@ -2,7 +2,7 @@ Rails.application.routes.draw do
   namespace :admin do
     resource :dashboard, only: [:show]
     resources :families, only: [:show, :new, :create, :index, :update]
-    resources :needs, only: [:index]
+    resources :needs, only: [:index, :show, :edit, :update, :new]
   end
 
   resources :users, only: [:new, :create, :edit, :update]
