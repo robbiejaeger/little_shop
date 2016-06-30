@@ -5,7 +5,7 @@ class Recipient < ActiveRecord::Base
   has_many :need_items
   has_many :donation_items, through: :need_items
   belongs_to :charity
-  belongs_to :charity
+  
 
   has_attached_file :recipient_photo, styles: {
     thumb: '100x100>',

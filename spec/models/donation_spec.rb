@@ -3,7 +3,7 @@ require 'rails_helper'
 RSpec.describe Donation, type: :model do
   it {should belong_to(:user)}
   it {should have_many(:donation_items)}
-  it { should validate_presence_of(:status) }
+  it { should validate_presence_of(:needs) }
   it do
     should validate_inclusion_of(:status).
       in_array(["Pledged", "Received", "Cancelled"])

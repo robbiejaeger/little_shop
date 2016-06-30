@@ -2,7 +2,7 @@ require 'rails_helper'
 
 RSpec.describe DonationItem, type: :model do
   it {should belong_to(:donation)}
-  it {should belong_to(:supply_item)}
+  it {should belong_to(:need_item)}
 
   it "associates donations and donation items with users" do
     user = User.create(username: "TestUser", password: "password", email: "email@example.com")
