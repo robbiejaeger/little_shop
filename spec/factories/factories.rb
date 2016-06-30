@@ -37,7 +37,6 @@ FactoryGirl.define do
     needs_category
   end
 
-
   sequence :need_name do |n|
     "Need-#{n}"
   end

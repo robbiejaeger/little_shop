@@ -56,7 +56,6 @@ class Seed
     end
   end
 
-
   def create_donation_items
     500.times do
       donation = Donation.find(Random.new.rand(1..100))
