@@ -37,7 +37,6 @@ FactoryGirl.define do
     needs_category
   end
 
-
   sequence :need_name do |n|
     "Need-#{n}"
   end
@@ -78,6 +77,13 @@ FactoryGirl.define do
 
   factory :future_need_item, class: NeedItem do
     quantity 1
+    need
+    recipient
+    deadline 5.days.from_now
+  end
+
+  factory :future_need_item_multiple, class: NeedItem do
+    quantity 10
     need
     recipient
     deadline 5.days.from_now

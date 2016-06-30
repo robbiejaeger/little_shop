@@ -6,7 +6,6 @@ class Seed
     create_need_categories
     create_users
     create_needs
-    create_donations
     create_recipients
     create_donations
     create_need_items
@@ -56,7 +55,6 @@ class Seed
     end
   end
 
-
   def create_donation_items
     500.times do
       donation = Donation.find(Random.new.rand(1..100))
@@ -75,11 +73,21 @@ class Seed
   end
 
   def create_causes
-    10.times do
-      Cause.create!(
-      name: Faker::Company.buzzword
-      )
-    end
+    # 10.times do
+    #   Cause.create!(
+    #   name: Faker::Company.buzzword
+    #   )
+    # end
+    Cause.create!(name: "Environment")
+    Cause.create!(name: "Poverty")
+    Cause.create!(name: "Humanitarian")
+    Cause.create!(name: "Youth")
+    Cause.create!(name: "Education")
+    Cause.create!(name: "Economic Development")
+    Cause.create!(name: "LGBTI")
+    Cause.create!(name: "Immigration")
+    Cause.create!(name: "Animal Rights")
+    Cause.create!(name: "Civil Rights")
   end
 
   def create_need_categories

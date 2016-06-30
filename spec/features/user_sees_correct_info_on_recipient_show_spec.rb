@@ -16,7 +16,6 @@ RSpec.feature "user sees correct info for recipients" do
     item2 = recipient.need_items.create!(quantity: 2, deadline: 10.days.from_now, need: create(:need))
 
     visit charity_recipient_path(charity.slug, recipient)
-
     within (".recipient-info") do
       expect(page).to have_content(recipient.name)
       expect(page).to have_content(recipient.description)
@@ -115,5 +114,18 @@ RSpec.feature "user sees correct info for recipients" do
     expect(page).to have_content("has no current donation needs")
 
   end
+
+
+
+    scenario "they don't see a recipient for another charity through the charity path" do
+      charity, other_charity = create_list(:charity, 2)
+      other_recipient = other_charity.recipients.create(name: "test", description: "test")
+
+      visit charity_recipient_path(charity.slug, other_recipient)
+
+      expect(current_path).to eq(charity_path(charity.slug))
+      expect(page).to have_content("Recipient not found")
+
+    end
 
 end

@@ -8,7 +8,6 @@ RSpec.feature "user can create an account" do
     fill_in "Username", with: "Robbie"
     fill_in "Password", with: "password"
     fill_in "Email", with: "email@example.com"
-    fill_in "Cell", with: "1112223333"
     click_on "Create Account"
 
     expect(page).to have_content "Logged in as Robbie"
@@ -18,17 +17,15 @@ RSpec.feature "user can create an account" do
     expect(page).to_not have_content "Login"
   end
 
-  scenario "they enter bad cell and get error" do
+  scenario "they enter no email and get error" do
     visit login_path
     click_on "Create Account"
 
     fill_in "Username", with: "Robbie"
     fill_in "Password", with: "password"
-    fill_in "Email", with: "email@example.com"
-    fill_in "Cell", with: "111-222-3333"
+    fill_in "Email", with: ""
     click_on "Create Account"
 
-    expect(page).to have_content "was not in correct format"
+    expect(page).to have_content "Email can't be blank"
   end
-
 end
