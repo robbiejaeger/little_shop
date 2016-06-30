@@ -107,10 +107,7 @@ ActiveRecord::Schema.define(version: 20160630201211) do
     t.datetime "updated_at",                  null: false
     t.integer  "role",            default: 0
     t.string   "email"
-    t.integer  "charity_id"
   end
-
-  add_index "users", ["charity_id"], name: "index_users_on_charity_id", using: :btree
 
   add_foreign_key "donation_items", "donations"
   add_foreign_key "donation_items", "need_items"
@@ -120,5 +117,4 @@ ActiveRecord::Schema.define(version: 20160630201211) do
   add_foreign_key "needs", "charities"
   add_foreign_key "needs", "needs_categories"
   add_foreign_key "recipients", "charities"
-  add_foreign_key "users", "charities"
 end
