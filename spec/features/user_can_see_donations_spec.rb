@@ -18,6 +18,23 @@ RSpec.feature "user can see all donations they have made" do
     expect(page).to_not have_link("#{other_users_donation.id}", href: "/donations/#{other_users_donation.id}")
   end
 
+  scenario "authenticated user sees list of only her donations when she has multiple previous donations" do
+  donation= create(:donation)
+  user = User.find(donation.user_id)
+  other_donation = Donation.create(user_id: user.id, created_at: Time.now, updated_at: Time.now)
+  visit login_path
+
+  fill_in "Username", with: "#{user.username}"
+  fill_in "Password", with: "password"
+  click_on "Login to Account"
+
+  visit donations_path
+  expect(page).to have_content("#{user.username}'s Donations")
+  expect(page).to have_content("Total Donations: 2")
+  expect(page).to have_link("#{donation.id}", href: "/donations/#{donation.id}")
+  expect(page).to have_link("#{other_donation.id}", href: "/donations/#{other_donation.id}")
+  end
+
   scenario "guest user visiting donations is redirected to log in" do
     visit donations_path
 
