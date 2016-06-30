@@ -16,8 +16,8 @@
     <% @cart_items.each do |cart_item| %>
     <tr>
 
-      <td><%= link_to cart_item.name, charity_recipient_path(cart_item.charity, cart_item.recipient) %></td>
-      <td><%= link_to cart_item.name, charity_recipient_path(cart_item.charity, cart_item.recipient)%></td>
+      <td><%= link_to cart_item.name, charity_recipient_path(cart_item.charity.slug, cart_item.recipient) %></td>
+      <td><%= link_to cart_item.charity.name, charity_path(cart_item.charity.slug)%></td>
       <td><%= cart_item.description %></td>
       <td><%= currency cart_item.price %></td>
       <td><%= currency cart_item.subtotal(cart_item.quantity) %></td>

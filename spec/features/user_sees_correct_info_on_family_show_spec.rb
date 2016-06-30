@@ -16,7 +16,7 @@ RSpec.feature "user sees correct info for recipients" do
     item2 = recipient.need_items.create!(quantity: 2, deadline: 10.days.from_now, need: create(:need))
 
     visit charity_recipient_path(charity.slug, recipient)
-
+save_and_open_page
     within (".recipient-info") do
       expect(page).to have_content(recipient.name)
       expect(page).to have_content(recipient.description)
