@@ -5,6 +5,7 @@ class Charity < ActiveRecord::Base
   has_many :causes_charities
   has_many :causes, through: :causes_charities
   has_many :recipients
+  has_many :users
 
   before_create :create_slug
 

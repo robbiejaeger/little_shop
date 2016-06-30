@@ -9,6 +9,7 @@ class User < ActiveRecord::Base
 
   has_many :donations
   has_many :donation_items, through: :donations
+  belongs_to :charity
 
   enum role: ["default", "admin"]
 

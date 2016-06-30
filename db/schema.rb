@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20160629220157) do
+ActiveRecord::Schema.define(version: 20160630201211) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -75,8 +75,10 @@ ActiveRecord::Schema.define(version: 20160629220157) do
     t.datetime "updated_at",        null: false
     t.datetime "date"
     t.integer  "needs_category_id"
+    t.integer  "charity_id"
   end
 
+  add_index "needs", ["charity_id"], name: "index_needs_on_charity_id", using: :btree
   add_index "needs", ["needs_category_id"], name: "index_needs_on_needs_category_id", using: :btree
 
   create_table "needs_categories", force: :cascade do |t|
@@ -105,13 +107,18 @@ ActiveRecord::Schema.define(version: 20160629220157) do
     t.datetime "updated_at",                  null: false
     t.integer  "role",            default: 0
     t.string   "email"
+    t.integer  "charity_id"
   end
+
+  add_index "users", ["charity_id"], name: "index_users_on_charity_id", using: :btree
 
   add_foreign_key "donation_items", "donations"
   add_foreign_key "donation_items", "need_items"
   add_foreign_key "donations", "users"
   add_foreign_key "need_items", "needs"
   add_foreign_key "need_items", "recipients"
+  add_foreign_key "needs", "charities"
   add_foreign_key "needs", "needs_categories"
   add_foreign_key "recipients", "charities"
+  add_foreign_key "users", "charities"
 end

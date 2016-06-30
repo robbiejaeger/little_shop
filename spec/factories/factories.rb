@@ -55,6 +55,13 @@ FactoryGirl.define do
     email "fake@fake.com"
   end
 
+  factory :business_admin_user, class: User do
+    username { generate(:username)}
+    password "password"
+    email "fake@fake.com"
+    charity
+  end
+
   sequence :username do |n|
     "user#{n}"
   end
