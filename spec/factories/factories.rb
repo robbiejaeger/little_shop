@@ -29,11 +29,11 @@ FactoryGirl.define do
     "Needs-Category-#{n}"
   end
 
-
   factory :need do
     name { generate(:need_name)}
     description { generate(:need_description)}
     price { generate(:need_price)}
+    charity
     needs_category
   end
 

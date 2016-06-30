@@ -5,6 +5,7 @@ class Need < ActiveRecord::Base
 
   has_many :need_items
   has_many :recipients, through: :need_items
-  has_many :donation_items 
+  has_many :donation_items
   belongs_to :needs_category
+  belongs_to :charity
 end
