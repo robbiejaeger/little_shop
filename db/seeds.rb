@@ -6,7 +6,6 @@ class Seed
     create_need_categories
     create_users
     create_needs
-    create_donations
     create_recipients
     create_donations
     create_need_items
