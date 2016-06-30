@@ -1,11 +1,11 @@
 <div class="recipient-info">
-  <h4><%= @recipient.name  %> </h4>
-  <p><%= @recipient.description %></p>
+  <h4>Recipient: <%= @recipient.name  %> </h4>
+  <p>Descrption:<%= @recipient.description %></p>
 </div>
 
 <div class="charity-info">
-  <h4><%= @charity.name  %> </h4>
-  <p><%= @charity.description %></p>
+  <h4>Charity: <%= @charity.name  %> </h4>
+  <p>Description: <%= @charity.description %></p>
 </div>
 
 <% if !@items.empty? %>
@@ -21,7 +21,6 @@
       </tr>
 
     <% @items.each do |item| %>
-      <% if item.quantity_remaining > 0 %>
         <%= form_for item, url: cart_items_path, method: :create do |f| %>
           <div class='<%= item.name %>' >
             <tr>
@@ -37,7 +36,6 @@
             </tr>
           </div>
         <% end %>
-      <% end %>
     <% end %>
     </table>
   </div>

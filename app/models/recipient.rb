@@ -18,6 +18,10 @@ class Recipient < ActiveRecord::Base
   scope :retired, -> {where("arrival_date < ?", Date.today)}
   scope :active, -> {where("arrival_date > ?", Date.today)}
 
+  def active_need_items
+    need_items.find_all { |item| item.active_need_item }
+  end
+
   def num_people
     num_married_adults + num_unmarried_adults +
     num_children_over_two + num_children_under_two

@@ -1,5 +1,5 @@
 <ul>
-  <% category.recipients.each do |recipient| %>
+  <% @recipients.each do |recipient| %>
   <li><%= link_to recipient.name, charity_recipient_path(recipient.charity.slug, recipient) %></li>
       <p><%= recipient.description %><p>
   <% end %>

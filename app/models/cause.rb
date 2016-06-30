@@ -9,4 +9,8 @@ class Cause < ActiveRecord::Base
   def create_slug
     self.slug = self.name.parameterize
   end
+
+  def active_recipients
+    recipients.find_all { |recipient| !recipient.active_need_items.empty? }
+  end
 end

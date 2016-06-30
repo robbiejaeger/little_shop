@@ -6,5 +6,6 @@ class CharitiesController < ApplicationController
 
   def show
     @charity = Charity.find_by(slug: params[:charity_slug])
+    @recipients = @charity.active_recipients
   end
 end
