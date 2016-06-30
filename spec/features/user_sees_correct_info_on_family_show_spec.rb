@@ -1,78 +1,132 @@
+#STILL NEEDED - pending these routes
+# The visitor can click on any of the following buttons:
+# See all recipients for [this charity]
+# See all recipients for [this cause]
+# See all recipients for [this type of need]
+
+
 require 'rails_helper'
 
-RSpec.feature "user sees correct info for current and past families" do
-  scenario "they see a form for family that will arrive" do
-    nationality = Nationality.create(photo_path: "x",
-      info_link: "x",
-      greeting: "x",
-      name: "Somali")
+RSpec.feature "user sees correct info for recipients" do
 
-    family = Family.create(first_name: "First1",
-      last_name: "Last1",
-      arrival_date: 10.days.from_now,
-      donation_deadline: 5.days.from_now,
-      nationality: nationality,
-      num_married_adults: 2,
-      num_unmarried_adults: 0,
-      num_children_over_two: 2,
-      num_children_under_two: 0)
+  scenario "they see a form for recipients that have active need items" do
+    item1 = create(:future_need_item)
+    recipient = item1.recipient
+    charity = recipient.charity
+    item2 = recipient.need_items.create!(quantity: 2, deadline: 10.days.from_now, need: create(:need))
 
-    supply = Supply.create(name: "School Supplies",
-      value: 10.0,
-      description: "3 notebooks, set of pens, set of pencils. Must be new.",
-      multiplier_type: "child")
+    visit charity_recipient_path(charity.slug, recipient)
+save_and_open_page
+    within (".recipient-info") do
+      expect(page).to have_content(recipient.name)
+      expect(page).to have_content(recipient.description)
+    end
 
-    family.supply_items.create(supply: supply, quantity: 2)
+    within (".charity-info") do
+      expect(page).to have_content(recipient.charity.name)
+      expect(page).to have_content(recipient.charity.description)
+    end
 
-
-    visit family_path(family)
-    expect(page).to_not have_content("Family Arrived")
-    expect(page).to have_content(family.arrival_date.to_formatted_s(:long))
-    expect(page).to have_content("Donate by:")
-    expect(page).to have_button("add to cart")
-  end
-
-  scenario "they see list of donations for family that already arrived" do
-      nationality = Nationality.create(photo_path: "x",
-        info_link: "x",
-        greeting: "x",
-        name: "Somali")
-
-      family = Family.create(first_name: "TestFirst",
-        last_name: "TestLast",
-        arrival_date: 10.days.ago,
-        donation_deadline: 15.days.ago,
-        nationality: nationality,
-        num_married_adults: 2,
-        num_unmarried_adults: 1,
-        num_children_over_two: 1,
-        num_children_under_two: 0)
-
-        supply = Supply.create(name: "School Supplies",
-          value: 10.0,
-          description: "3 notebooks, set of pens, set of pencils. Must be new.",
-          multiplier_type: "child")
-
-        family.supply_items.create(supply: supply, quantity: 2)
-
-        user = User.create(username: "user1", password: "password")
-
-        donation = Donation.create(status: "Received", user: user)
-
-        donation_item1 = DonationItem.create(quantity: 1,
-          supply_item: family.supply_items.first,
-          donation: donation)
-
-        visit family_path(family)
-        expect(page).to have_content("Family Arrived")
-        expect(page).to_not have_content(family.arrival_date.to_formatted_s(:long))
-        expect(page).to_not have_content("Donate by:")
-        expect(page).to_not have_button("add to cart")
-        expect(page).to have_content("Donated Item")
-        expect(page).to have_content(donation.created_at.to_formatted_s(:long))
-        expect(page).to have_content("School Supplies")
+    within(".current-needs") do
+      within(".#{item1.name}") do
+        expect(page).to have_content(item1.name)
+        expect(page).to have_content(item1.description)
+        expect(page).to have_content(item1.need.price)
+        expect(page).to have_button("add to cart")
+        expect(page).to have_select('need_item[quantity]', :options => ['0', '1'])
       end
 
-      scenario "" do
+      within(".#{item2.name}") do
+        expect(page).to have_content(item2.name)
+        expect(page).to have_content(item2.description)
+        expect(page).to have_content(item2.need.price)
+        expect(page).to have_button("add to cart")
+        expect(page).to have_select('need_item[quantity]', :options => ['0', '1', '2'])
       end
     end
+  end
+
+  scenario "fully donated items are not shown as active need items" do
+    item1 = create(:future_need_item)
+    recipient = item1.recipient
+    charity = recipient.charity
+    item2 = recipient.need_items.create!(quantity: 2, deadline: 10.days.from_now, need: create(:need))
+    item2.donation_items.create!(quantity: 2, donation: create(:donation))
+
+    visit charity_recipient_path(charity.slug, recipient)
+
+    within (".recipient-info") do
+      expect(page).to have_content(recipient.name)
+      expect(page).to have_content(recipient.description)
+    end
+
+    within (".charity-info") do
+      expect(page).to have_content(recipient.charity.name)
+      expect(page).to have_content(recipient.charity.description)
+    end
+
+    within(".current-needs") do
+      within(".#{item1.name}") do
+        expect(page).to have_content(item1.name)
+        expect(page).to have_content(item1.description)
+        expect(page).to have_content(item1.need.price)
+        expect(page).to have_button("add to cart")
+        expect(page).to have_select('need_item[quantity]', :options => ['0', '1'])
+      end
+      expect(page).to_not have_selector(".#{item2.name}")
+      expect(page).to_not have_content(item2.name)
+      expect(page).to_not have_content(item2.description)
+    end
+  end
+
+
+  scenario "they see a form for recipients that have active need items and inactive items are not shown" do
+    item1 = create(:future_need_item)
+    recipient = item1.recipient
+    charity = recipient.charity
+    item2 = recipient.need_items.create!(quantity: 2, deadline: 10.days.ago, need: create(:need))
+
+    visit charity_recipient_path(charity.slug, recipient)
+
+    within(".current-needs") do
+      within(".#{item1.name}") do
+        expect(page).to have_content(item1.name)
+        expect(page).to have_content(item1.description)
+        expect(page).to have_content(item1.need.price)
+        expect(page).to have_button("add to cart")
+        expect(page).to have_select('need_item[quantity]', :options => ['0', '1'])
+      end
+    end
+
+    expect(page).to_not have_content(item2.name)
+    expect(page).to_not have_content(item2.description)
+
+  end
+
+  scenario "they don't see a form for recipients with no active needs" do
+    item1 = create(:past_need_item)
+    recipient = item1.recipient
+    charity = recipient.charity
+
+    visit charity_recipient_path(charity.slug, recipient)
+
+    expect(page).to_not have_content(item1.name)
+    expect(page).to_not have_content(item1.description)
+    expect(page).to have_content("has no current donation needs")
+
+  end
+
+
+
+    scenario "they don't see a recipient for another charity through the charity path" do
+      charity, other_charity = create_list(:charity, 2)
+      other_recipient = other_charity.recipients.create(name: "test", description: "test")
+
+      visit charity_recipient_path(charity.slug, other_recipient)
+
+      expect(current_path).to eq(charity_path(charity.slug))
+      expect(page).to have_content("Recipient not found")
+
+    end
+
+end

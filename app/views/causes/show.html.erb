@@ -1,0 +1,14 @@
+<h1> Cause: <%= @cause.name %></h1>
+<%= render partial: "shared/recipient_list" %>
+<div class="container">
+<h4>Charities for this Cause:</h4>
+<table class="table table-hover">
+  <% @cause.charities.each do |charity| %>
+  <div class="col-sm-12 col-md-4 col-lg-4">
+      <tr>
+        <td><%= link_to charity.name, charity_path(charity.slug, charity) %></td>
+      </tr>
+  </div>
+  <% end %>
+</table>
+</div>
