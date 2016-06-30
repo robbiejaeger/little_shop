@@ -4,16 +4,28 @@ class User < ActiveRecord::Base
   validates :username, presence: true
   validates :email, presence: true
   validates :password, presence: true
-  validates :role, presence: true
   validate :password_correct?, on: :update
 
   has_many :donations
   has_many :donation_items, through: :donations
-  belongs_to :charity
 
-  enum role: ["default", "admin"]
+  has_many :user_roles
+  has_many :roles, through: :user_roles
+  has_many :charities, through: :user_roles
 
   attr_accessor :current_password
+
+  def platform_admin?
+    roles.exists?(name: "platform_admin")
+  end
+
+  def business_owner?
+    roles.exists?(name: "business_owner")
+  end
+
+  def business_admin?
+    roles.exists?(name: "business_admin")
+  end
 
   def password_correct?
     if !password.blank?
