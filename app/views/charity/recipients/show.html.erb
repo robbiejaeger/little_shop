@@ -1,15 +1,17 @@
+<div class="container">
 <div class="recipient-info">
-  <h4><%= @recipient.name  %> </h4>
-  <p><%= @recipient.description %></p>
+  <h4>Recipient: <%= @recipient.name  %> </h4>
+  <p>Descrption:<%= @recipient.description %></p>
 </div>
 
 <div class="charity-info">
-  <h4><%= @charity.name  %> </h4>
-  <p><%= @charity.description %></p>
+  <h4>Charity: <%= @charity.name  %> </h4>
+  <p>Description: <%= @charity.description %></p>
+</div>
 </div>
 
 <% if !@items.empty? %>
-  <div class="col-sm-10 col-sm-offset-1 current-needs">
+  <div class="col-sm-12 current-needs">
 
     <h4><%=@recipient.name %> needs the following donations:</h4>
     <table class="table">
@@ -21,7 +23,6 @@
       </tr>
 
     <% @items.each do |item| %>
-      <% if item.quantity_remaining > 0 %>
         <%= form_for item, url: cart_items_path, method: :create do |f| %>
           <div class='<%= item.name %>' >
             <tr>
@@ -37,10 +38,24 @@
             </tr>
           </div>
         <% end %>
-      <% end %>
     <% end %>
     </table>
   </div>
 <% else %>
   <h4><%= @recipient.name %> has no current donation needs</h4>
 <% end  %>
+
+<div class="container">
+
+<h4>See more recipients like <%= @recipient.name %>:</h4>
+<div class="btn-group-vertical" role="group">
+  <%= button_to "All from #{@recipient.charity.name}",  charity_path(@recipient.charity.slug), method: :get, class: 'btn btn-info btn-block'%>
+  <% @recipient.charity.causes.each do |cause| %>
+  <%= button_to "All from #{cause.name} Cause",  cause_path(cause.slug), method: :get, class: 'btn btn-info btn-block' %>
+  <% end %>
+  <% @recipient.need_categories.each do |category| %>
+  <%= button_to "All with #{category.name} Need",  needs_category_path(category.slug), method: :get, class: 'btn btn-info btn-block' %>
+  <% end %>
+</div>
+
+</div>

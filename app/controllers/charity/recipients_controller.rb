@@ -7,18 +7,12 @@ class Charity::RecipientsController < ApplicationController
   end
 
   def show
-    # byebug
     @charity = Charity.find_by(slug: params[:charity]) #change
     @recipient = Recipient.find(params[:id])
-    @items = @recipient.need_items.active
-    # if @family.value_of_supplies_purchased > 0
-    #   @supplies_needed_value = @family.value_of_supplies_needed
-    #   @supplies_purchased_value = @family.value_of_supplies_purchased
-    #   @percentage_purchased = @family.percentage_donated
-    # else
-    #   @supplies_needed_value = @family.value_of_supplies_needed
-    #   @supplies_purchased_value = 0
-    #   @percentage_purchased = 0
-    # end
+    @items = @recipient.active_need_items
+    if !@charity.associated_recipient?(@recipient.id)
+       flash[:info] = "Recipient not found"
+       redirect_to charity_path(@charity.slug)
+    end
   end
 end

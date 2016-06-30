@@ -6,9 +6,14 @@ class NeedItem < ActiveRecord::Base
   scope :retired, -> {where("deadline < ?", Date.today)}
   scope :active, -> {where("deadline > ?", Date.today)}
 
+
   # def self.find_family(id)
   #   find(id).family
   # end
+
+  def active_need_item
+    deadline > Date.today && quantity_remaining > 0
+  end
 
   def name
     need.name
