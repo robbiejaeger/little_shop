@@ -9,7 +9,7 @@ class CartItemsController < ApplicationController
   end
 
   def update
-    @cart.change_cart_item_quantity(params[:supply_item][:id], params[:supply_item][:quantity])
+    @cart.change_cart_item_quantity(params[:need_item][:id], params[:need_item][:quantity])
     session[:cart] = @cart.contents
     redirect_to cart_index_path
   end
@@ -17,9 +17,8 @@ class CartItemsController < ApplicationController
   def destroy
     @cart.delete_cart_item(params[:id])
     session[:cart] = @cart.contents
-    supply_name = SupplyItem.find(params[:id]).supply.name
-    family = SupplyItem.find_family(params[:id])
-    flash[:success] = "Successfully deleted #{view_context.link_to(supply_name, family_path(family))} from your cart."
+    need_name = NeedItem.find(params[:id]).name
+    flash[:success] = "Successfully deleted #{need_name} from your cart."
     redirect_to cart_index_path
   end
 end
