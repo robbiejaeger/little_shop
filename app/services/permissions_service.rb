@@ -55,7 +55,8 @@ class PermissionsService
   end
 
   def business_admin_permissions
-    return true if controller == "admin/dashboard" && action == "show"
+    return true if controller == "admin/needs" && action == "index"
+    return true if controller == "admin/dashboards" && action == "show"
     return true if controller == "sessions" && action == "new"
     return true if controller == "sessions" && action == "create"
     return true if controller == "users" && action == "new"
