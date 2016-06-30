@@ -3,8 +3,9 @@ class Recipient < ActiveRecord::Base
   validates :description, presence: true
 
   has_many :need_items
+  has_many :needs, through: :need_items
+  has_many :need_categories, through: :needs
   has_many :donation_items, through: :need_items
-  belongs_to :charity
   belongs_to :charity
 
   has_attached_file :recipient_photo, styles: {
@@ -20,6 +21,10 @@ class Recipient < ActiveRecord::Base
 
   def active_need_items
     need_items.find_all { |item| item.active_need_item }
+  end
+
+  def need_categories
+    needs.map {|need| need.needs_category}.uniq
   end
 
   def num_people
