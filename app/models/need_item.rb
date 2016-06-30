@@ -27,6 +27,10 @@ class NeedItem < ActiveRecord::Base
     need.price
   end
 
+  def charity
+    recipient.charity
+  end
+
   def quantity_remaining
     quantity - donation_items.sum(:quantity)
   end
