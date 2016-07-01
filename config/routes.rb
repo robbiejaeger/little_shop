@@ -1,8 +1,11 @@
 Rails.application.routes.draw do
   namespace :admin do
-    resource :dashboard, only: [:show]
-    resources :families, only: [:show, :new, :create, :index, :update]
-    resources :needs, only: [:index, :show, :edit, :update, :new]
+
+    namespace :charity, path: ':charity_id' do
+    # resources :families, only: [:show, :new, :create, :index, :update]
+      resource :dashboard, only: [:show]
+      resources :needs, only: [:index, :show, :edit, :update, :new]
+    end
   end
 
   resources :users, only: [:new, :create, :edit, :update]

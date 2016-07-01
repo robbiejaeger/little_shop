@@ -29,6 +29,7 @@ class ApplicationController < ActionController::Base
   end
 
   def current_permission
-    @current_permission ||= PermissionsService.new(current_user, params[:controller], params[:action])
+    charity_id = params[:charity_id] || nil
+    @current_permission ||= PermissionsService.new(current_user, params[:controller], params[:action], charity_id)
   end
 end

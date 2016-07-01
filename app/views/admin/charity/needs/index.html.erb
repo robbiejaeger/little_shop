@@ -8,10 +8,10 @@
 <% @needs.each do |need| %>
 <tr>
 <td><%= need.name %> </td>
-<td> <%= link_to "View Details", admin_need_path(need) %> </td>
+<td> <%= link_to "View Details", admin_charity_need_path(@charity, need) %> </td>
 </tr>
 <% end %>
 
 </table>
 
-<%= link_to "Add Need", new_admin_need_path %>
+<%= link_to "Add Need", new_admin_charity_need_path(@charity) %>
