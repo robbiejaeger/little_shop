@@ -4,7 +4,7 @@ Rails.application.routes.draw do
     namespace :charity, path: ':charity_id' do
     # resources :families, only: [:show, :new, :create, :index, :update]
       resource :dashboard, only: [:show]
-      resources :needs, only: [:index, :show, :edit, :update, :new]
+      resources :needs, only: [:index, :show, :edit, :update, :new, :create]
     end
   end
 

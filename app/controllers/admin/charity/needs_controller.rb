@@ -9,6 +9,22 @@ class Admin::Charity::NeedsController < Admin::BaseController
     @need = Need.find(params[:id])
   end
 
+  def new
+    @needs_category_options = NeedsCategory.all.map{ |need_cat| [ need_cat.name, need_cat.id ] }
+    @need = Need.new
+  end
+
+  def create
+    @need = Need.new(need_params)
+    @charity = Charity.find(params[:charity_id])
+    if @need.save
+      redirect_to admin_charity_need_path(@charity, @need)
+    else
+      render :new
+    end
+  end
+
+
   def edit
 
   end
@@ -19,7 +35,7 @@ class Admin::Charity::NeedsController < Admin::BaseController
 
   private
 
-  def needs_params
+  def need_params
     params.require(:need).permit(:name, :description, :price, :needs_category_id, :charity_id)
   end
 
