@@ -10,7 +10,7 @@ class Admin::Charity::NeedsController < Admin::BaseController
   end
 
   def new
-    @needs_category_options = NeedsCategory.all.map{ |need_cat| [ need_cat.name, need_cat.id ] }
+    @needs_category_options = NeedsCategory.form_options
     @need = Need.new
   end
 
