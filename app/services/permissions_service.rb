@@ -50,7 +50,7 @@ class PermissionsService
     return true if controller == "charities" && action == "index"
     return true if controller == "charities" && action == "show"
     return true if controller == "causes" && action == "show"
-    return true if controller == "needs_category" && action == "show"
+    return true if controller == "needs_categories" && action == "show"
     return true if controller == "charity/recipients" && action == "show"
   end
 
@@ -76,7 +76,7 @@ class PermissionsService
     return true if controller == "charities" && action == "index"
     return true if controller == "charities" && action == "show"
     return true if controller == "causes" && action == "show"
-    return true if controller == "needs_category" && action == "show"
+    return true if controller == "needs_categories" && action == "show"
     return true if controller == "charity/recipients" && action == "show"
   end
 
@@ -101,7 +101,7 @@ class PermissionsService
     return true if controller == "charities" && action == "index"
     return true if controller == "charities" && action == "show"
     return true if controller == "causes" && action == "show"
-    return true if controller == "needs_category" && action == "show"
+    return true if controller == "needs_categories" && action == "show"
     return true if controller == "charity/recipients" && action == "show"
   end
 
@@ -126,7 +126,7 @@ class PermissionsService
     return true if controller == "charities" && action == "index"
     return true if controller == "charities" && action == "show"
     return true if controller == "causes" && action == "show"
-    return true if controller == "needs_category" && action == "show"
+    return true if controller == "needs_categories" && action == "show"
     return true if controller == "charity/recipients" && action == "show"
   end
 end
