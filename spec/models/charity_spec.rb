@@ -8,10 +8,9 @@ RSpec.describe Charity, type: :model do
    it { should have_many(:recipients) }
 
    scenario "creating a slug method" do
-     charity = Charity.create(name: "Charity 1",
-                              description: "Charity 1 description")
+     charity = create(:charity)
 
-     expect(charity.slug).to eq("charity-1")
+     expect(charity.slug).to eq("charity-5")
    end
 
    scenario "see if recipient belongs a charity" do

@@ -6,7 +6,7 @@ RSpec.describe Cause, type: :model do
   it { should have_many(:recipients) }
 
   scenario "creating a slug method" do
-    cause = Cause.create(name: "cause 1")
+    cause = create(:cause)
 
     expect(cause.slug).to eq("cause-1")
   end
@@ -23,7 +23,6 @@ RSpec.describe Cause, type: :model do
 
     recipient_two.need_items << new_item
     recipient_two.charity.causes << cause
-byebug 
 
     expect(cause.active_recipients.first).to eq(recipient_two)
   end
