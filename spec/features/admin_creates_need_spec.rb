@@ -11,11 +11,11 @@ RSpec.feature "admin can add need for charity" do
 
     allow_any_instance_of(ApplicationController).to receive(:current_user).and_return( user )
 
-    visit admin_charity_needs_path(charity)
+    visit admin_charity_needs_path(charity.slug)
 
     click_on "Add Need"
 
-    expect(current_path).to eq(new_admin_charity_need_path(charity))
+    expect(current_path).to eq(new_admin_charity_need_path(charity.slug))
 
     fill_in "Name", with: "Need-1"
     fill_in "Description", with: "description for Need-1"
@@ -23,7 +23,7 @@ RSpec.feature "admin can add need for charity" do
     select "#{need_cat1.name}", from: "need[needs_category_id]"
     click_on "Create Need"
 
-    expect(current_path).to eq(admin_charity_need_path(charity, Need.first))
+    expect(current_path).to eq(admin_charity_need_path(charity.slug, Need.first))
 
     expect(page).to have_content("Need-1")
     expect(page).to have_content("description for Need-1")
@@ -44,11 +44,11 @@ RSpec.feature "admin can add need for charity" do
 
     allow_any_instance_of(ApplicationController).to receive(:current_user).and_return( user )
 
-    visit admin_charity_needs_path(charity)
+    visit admin_charity_needs_path(charity.slug)
 
     click_on "Add Need"
 
-    expect(current_path).to eq(new_admin_charity_need_path(charity))
+    expect(current_path).to eq(new_admin_charity_need_path(charity.slug))
 
     fill_in "Name", with: "Need-1"
     fill_in "Description", with: "description for Need-1"
@@ -56,7 +56,7 @@ RSpec.feature "admin can add need for charity" do
     select "#{need_cat1.name}", from: "need[needs_category_id]"
     click_on "Create Need"
 
-    expect(current_path).to eq(admin_charity_need_path(charity, Need.first))
+    expect(current_path).to eq(admin_charity_need_path(charity.slug, Need.first))
 
     expect(page).to have_content("Need-1")
     expect(page).to have_content("description for Need-1")
@@ -77,7 +77,7 @@ RSpec.feature "admin can add need for charity" do
 
     allow_any_instance_of(ApplicationController).to receive(:current_user).and_return( user )
 
-    visit new_admin_charity_need_path(charity_two)
+    visit new_admin_charity_need_path(charity_two.slug)
 
     expect(current_path).to eq(root_path)
     expect(page).to have_content("not authorized")
@@ -94,7 +94,7 @@ RSpec.feature "admin can add need for charity" do
 
     allow_any_instance_of(ApplicationController).to receive(:current_user).and_return( user )
 
-    visit new_admin_charity_need_path(charity_two)
+    visit new_admin_charity_need_path(charity_two.slug)
 
     expect(current_path).to eq(root_path)
     expect(page).to have_content("not authorized")
@@ -111,11 +111,11 @@ RSpec.feature "admin can add need for charity" do
 
     allow_any_instance_of(ApplicationController).to receive(:current_user).and_return( user )
 
-    visit admin_charity_needs_path(charity)
+    visit admin_charity_needs_path(charity.slug)
 
     click_on "Add Need"
 
-    expect(current_path).to eq(new_admin_charity_need_path(charity))
+    expect(current_path).to eq(new_admin_charity_need_path(charity.slug))
 
     fill_in "Name", with: "Need-1"
     fill_in "Description", with: "description for Need-1"
@@ -123,7 +123,7 @@ RSpec.feature "admin can add need for charity" do
     select "#{need_cat1.name}", from: "need[needs_category_id]"
     click_on "Create Need"
 
-    expect(current_path).to eq(admin_charity_need_path(charity, Need.first))
+    expect(current_path).to eq(admin_charity_need_path(charity.slug, Need.first))
 
     expect(page).to have_content("Need-1")
     expect(page).to have_content("description for Need-1")
@@ -145,7 +145,7 @@ RSpec.feature "admin can add need for charity" do
 
     allow_any_instance_of(ApplicationController).to receive(:current_user).and_return( user )
 
-    visit new_admin_charity_need_path(charity)
+    visit new_admin_charity_need_path(charity.slug)
 
     expect(page).to have_content("not authorized")
     expect(current_path).to eq(root_path)

@@ -13,10 +13,10 @@ RSpec.feature "admin can see all needs for charity" do
 
     allow_any_instance_of(ApplicationController).to receive(:current_user).and_return( user )
 
-    visit admin_charity_dashboard_path(charity)
+    visit admin_charity_dashboard_path(charity.slug)
 
     click_on "Manage Needs"
-    expect(current_path).to eq(admin_charity_needs_path(charity))
+    expect(current_path).to eq(admin_charity_needs_path(charity.slug))
     expect(page).to have_content("#{need1.name}")
     expect(page).to have_content("#{need2.name}")
 
@@ -34,10 +34,10 @@ RSpec.feature "admin can see all needs for charity" do
 
     allow_any_instance_of(ApplicationController).to receive(:current_user).and_return( user )
 
-    visit admin_charity_dashboard_path(charity)
+    visit admin_charity_dashboard_path(charity.slug)
 
     click_on "Manage Needs"
-    expect(current_path).to eq(admin_charity_needs_path(charity))
+    expect(current_path).to eq(admin_charity_needs_path(charity.slug))
     expect(page).to have_content("#{need1.name}")
     expect(page).to have_content("#{need2.name}")
 
@@ -56,7 +56,7 @@ RSpec.feature "admin can see all needs for charity" do
 
     allow_any_instance_of(ApplicationController).to receive(:current_user).and_return( user )
 
-    visit admin_charity_dashboard_path(charity_two)
+    visit admin_charity_dashboard_path(charity_two.slug)
 
     expect(page).to have_content("not authorized")
     expect(current_path).to eq(root_path)
@@ -76,7 +76,7 @@ RSpec.feature "admin can see all needs for charity" do
 
     allow_any_instance_of(ApplicationController).to receive(:current_user).and_return( user )
 
-    visit admin_charity_dashboard_path(charity_two)
+    visit admin_charity_dashboard_path(charity_two.slug)
 
     expect(page).to have_content("not authorized")
     expect(current_path).to eq(root_path)
@@ -95,11 +95,11 @@ RSpec.feature "admin can see all needs for charity" do
 
     allow_any_instance_of(ApplicationController).to receive(:current_user).and_return( user )
 
-    visit admin_charity_dashboard_path(charity)
+    visit admin_charity_dashboard_path(charity.slug)
 
     click_on "Manage Needs"
-    
-    expect(current_path).to eq(admin_charity_needs_path(charity))
+
+    expect(current_path).to eq(admin_charity_needs_path(charity.slug))
     expect(page).to have_content("#{need1.name}")
     expect(page).to have_content("#{need2.name}")
 
@@ -115,7 +115,7 @@ RSpec.feature "admin can see all needs for charity" do
 
     allow_any_instance_of(ApplicationController).to receive(:current_user).and_return( user )
 
-    visit admin_charity_needs_path(charity)
+    visit admin_charity_needs_path(charity.slug)
 
     expect(page).to have_content("not authorized")
     expect(current_path).to eq(root_path)

@@ -1,7 +1,7 @@
 class Admin::Charity::NeedsController < Admin::BaseController
 
   def index
-    @charity = Charity.find(params[:charity_id])
+    @charity = Charity.find_by(slug: params[:charity_slug])
     @needs = @charity.needs
   end
 
@@ -16,9 +16,9 @@ class Admin::Charity::NeedsController < Admin::BaseController
 
   def create
     @need = Need.new(need_params)
-    @charity = Charity.find(params[:charity_id])
+    @charity = Charity.find_by(slug: params[:charity_slug])
     if @need.save
-      redirect_to admin_charity_need_path(@charity, @need)
+      redirect_to admin_charity_need_path(@charity.slug, @need)
     else
       render :new
     end
