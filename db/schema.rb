@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20160630215301) do
+ActiveRecord::Schema.define(version: 20160702022929) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -71,13 +71,17 @@ ActiveRecord::Schema.define(version: 20160630215301) do
     t.string   "name"
     t.string   "description"
     t.decimal  "price"
-    t.datetime "created_at",        null: false
-    t.datetime "updated_at",        null: false
+    t.datetime "created_at",                    null: false
+    t.datetime "updated_at",                    null: false
     t.datetime "date"
     t.integer  "needs_category_id"
+    t.integer  "charity_id"
+    t.integer  "status_id",         default: 1
   end
 
+  add_index "needs", ["charity_id"], name: "index_needs_on_charity_id", using: :btree
   add_index "needs", ["needs_category_id"], name: "index_needs_on_needs_category_id", using: :btree
+  add_index "needs", ["status_id"], name: "index_needs_on_status_id", using: :btree
 
   create_table "needs_categories", force: :cascade do |t|
     t.string "name"
@@ -104,6 +108,12 @@ ActiveRecord::Schema.define(version: 20160630215301) do
     t.datetime "updated_at", null: false
   end
 
+  create_table "statuses", force: :cascade do |t|
+    t.string   "name"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+  end
+
   create_table "user_roles", force: :cascade do |t|
     t.integer  "role_id"
     t.integer  "charity_id"
@@ -119,9 +129,8 @@ ActiveRecord::Schema.define(version: 20160630215301) do
   create_table "users", force: :cascade do |t|
     t.string   "username"
     t.string   "password_digest"
-    t.datetime "created_at",                  null: false
-    t.datetime "updated_at",                  null: false
-    t.integer  "role",            default: 0
+    t.datetime "created_at",      null: false
+    t.datetime "updated_at",      null: false
     t.string   "email"
   end
 
@@ -130,7 +139,9 @@ ActiveRecord::Schema.define(version: 20160630215301) do
   add_foreign_key "donations", "users"
   add_foreign_key "need_items", "needs"
   add_foreign_key "need_items", "recipients"
+  add_foreign_key "needs", "charities"
   add_foreign_key "needs", "needs_categories"
+  add_foreign_key "needs", "statuses"
   add_foreign_key "recipients", "charities"
   add_foreign_key "user_roles", "charities"
   add_foreign_key "user_roles", "roles"

@@ -1,13 +1,14 @@
 class User < ActiveRecord::Base
   has_secure_password
 
-  validates :username, presence: true, uniqueness: true
-  validates :email, presence: true, uniqueness: true
+  validates :username, presence: true
+  validates :email, presence: true
   validates :password, presence: true
   validate :password_correct?, on: :update
 
   has_many :donations
   has_many :donation_items, through: :donations
+
   has_many :user_roles
   has_many :roles, through: :user_roles
   has_many :charities, through: :user_roles
