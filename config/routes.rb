@@ -28,8 +28,8 @@ Rails.application.routes.draw do
   get 'causes/:causes_slug', to: 'causes#show', as: :cause
   get 'needs_category/:needs_category_slug', to: 'needs_categories#show', as: :needs_category
 
-  namespace :charity,  path: ':charity', as: :charity do
-    resources :recipients, only: :show
+  namespace :charity,  path: ':charity_slug' do
+    resources :recipients
   end
 
   # resources :categories, only: [:show], path: ""
