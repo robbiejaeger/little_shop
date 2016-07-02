@@ -29,4 +29,9 @@ class Charity < ActiveRecord::Base
     recipients.find_all { |recipient| !recipient.active_need_items.empty? }
   end
 
+  def self.form_options
+    all.map{ |charity| [ charity.name, charity.id ] }
+  end
+
+
 end

@@ -2,4 +2,6 @@
   <% @charities.each do |charity| %>
   <li><%= link_to charity.name, admin_charity_dashboard_path(charity.slug) %></li>
   <% end %>
-</ul> 
+</ul>
+
+<h2><%= link_to "Manage Users", admin_users_path %></h2>
