@@ -2,10 +2,6 @@ class DonationItem < ActiveRecord::Base
   belongs_to :need_item
   belongs_to :donation
 
-  def family_description
-    "#{family_nationality} family of #{family_size}"
-  end
-
   def name
     supply_item.supply.name
   end

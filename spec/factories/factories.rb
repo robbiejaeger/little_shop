@@ -65,6 +65,13 @@ FactoryGirl.define do
     charity
   end
 
+  factory :need_item do
+    quantity 1
+    need
+    recipient
+    deadline Date.today
+  end
+
 
   sequence :recipient_name do |n|
     "Recipient-#{n}"
@@ -94,6 +101,12 @@ FactoryGirl.define do
     need
     recipient
     deadline 5.days.ago
+  end
+
+  factory :donation_item do
+    quantity 1
+    donation
+    need_item
   end
 
   factory :donation do
