@@ -6,12 +6,12 @@ class DonationItem < ActiveRecord::Base
     supply_item.supply.name
   end
 
-  def price
+  def unit_price
     need_item.need.price
   end
 
   def subtotal
-    price * quantity
+    unit_price * quantity
   end
 
   def self.total_items
