@@ -32,4 +32,28 @@ module ApplicationHelper
     parsed_tweet.html_safe
   end
 
+  def deactivate_need_link(need)
+    link_to "Deactivate",
+        admin_charity_need_path(need.charity.slug, need,
+        :need => { :status_id => 2}),
+        :method => :put,
+        :confirm => "Are you sure?"
+  end
+
+  def activate_need_link(need)
+    link_to "Activate",
+        admin_charity_need_path(need.charity.slug, need,
+        :need => { :status_id => 1}),
+        :method => :put,
+        :confirm => "Are you sure?"
+  end
+
+  def suspend_need_link(need)
+    link_to "Suspend",
+        admin_charity_need_path(need.charity.slug, need,
+        :need => { :status_id => 3}),
+        :method => :put,
+        :confirm => "Are you sure?"
+  end
+
 end
