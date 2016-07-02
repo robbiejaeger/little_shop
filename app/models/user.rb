@@ -8,6 +8,7 @@ class User < ActiveRecord::Base
 
   has_many :donations
   has_many :donation_items, through: :donations
+
   has_many :user_roles
   has_many :roles, through: :user_roles
   has_many :charities, through: :user_roles
