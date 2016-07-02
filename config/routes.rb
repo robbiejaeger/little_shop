@@ -1,5 +1,8 @@
 Rails.application.routes.draw do
   namespace :admin do
+    resources :users, only: [:index, :show] do
+      resources :user_roles, only: [:new, :create]
+    end 
     namespace :charity, path: ':charity_slug' do
       resource :dashboard, only: [:show]
       resources :needs, only: [:index, :show, :edit, :update, :new, :create]
@@ -17,6 +20,7 @@ Rails.application.routes.draw do
   delete '/logout', to: "sessions#destroy"
 
   get '/dashboard', to: "users#show"
+  get 'admin/dashboard', to: "admin/dashboard#index"
 
   resources :donations, only: [:index, :show, :new, :create]
 

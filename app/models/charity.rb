@@ -29,4 +29,13 @@ class Charity < ActiveRecord::Base
     recipients.find_all { |recipient| !recipient.active_need_items.empty? }
   end
 
+  def self.form_options(user)
+    if user.platform_admin?
+      all.map{ |charity| [ charity.name, charity.id ] }
+    else
+      user.charities.map {|charity| [ charity.name, charity.id ] }
+    end
+  end
+
+
 end

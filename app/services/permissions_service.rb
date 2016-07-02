@@ -74,6 +74,9 @@ class PermissionsService
     end
     return true if controller == "sessions" && action == "new"
     return true if controller == "sessions" && action == "create"
+    return true if controller == "admin/dashboard" && action == "index"
+    return true if controller == "admin/users" && action == "index"
+    return true if controller == "admin/users" && action == "show"
     return true if controller == "sessions" && action == "destroy"
     return true if controller == "users" && action == "new"
     return true if controller == "users" && action == "create"
@@ -94,6 +97,8 @@ class PermissionsService
     return true if controller == "causes" && action == "show"
     return true if controller == "needs_categories" && action == "show"
     return true if controller == "charity/recipients" && action == "show"
+    return true if controller == "admin/user_roles" && action == "new"
+    return true if controller == "admin/user_roles" && action == "create"
   end
 
   def business_owner_permissions
@@ -109,8 +114,13 @@ class PermissionsService
       return true if controller == "admin/charity/dashboards" && action == "show"
 
     end
+    return true if controller == "admin/user_roles" && action == "new"
+    return true if controller == "admin/user_roles" && action == "create"
+    return true if controller == "admin/users" && action == "index"
+    return true if controller == "admin/users" && action == "show"
     return true if controller == "sessions" && action == "new"
     return true if controller == "sessions" && action == "create"
+    return true if controller == "admin/dashboard" && action == "index"
     return true if controller == "sessions" && action == "destroy"
     return true if controller == "users" && action == "new"
     return true if controller == "users" && action == "create"
@@ -141,8 +151,13 @@ class PermissionsService
     return true if controller == "admin/charity/needs" && action == "new"
     return true if controller == "admin/charity/needs" && action == "create"
     return true if controller == "admin/charity/dashboards" && action == "show"
+    return true if controller == "admin/user_roles" && action == "new"
+    return true if controller == "admin/user_roles" && action == "create"
+    return true if controller == "admin/users" && action == "index"
+    return true if controller == "admin/users" && action == "show"
     return true if controller == "sessions" && action == "new"
     return true if controller == "sessions" && action == "create"
+    return true if controller == "admin/dashboard" && action == "index"
     return true if controller == "sessions" && action == "destroy"
     return true if controller == "users" && action == "new"
     return true if controller == "users" && action == "create"
