@@ -1,4 +1,4 @@
-jclass Charity < ActiveRecord::Base
+class Charity < ActiveRecord::Base
   validates :name, presence: true
   validates :description, presence: true
 
@@ -28,5 +28,14 @@ jclass Charity < ActiveRecord::Base
   def active_recipients
     recipients.find_all { |recipient| !recipient.active_need_items.empty? }
   end
+
+  def self.form_options(user)
+    if user.platform_admin?
+      all.map{ |charity| [ charity.name, charity.id ] }
+    else
+      user.charities.map {|charity| [ charity.name, charity.id ] }
+    end
+  end
+
 
 end
