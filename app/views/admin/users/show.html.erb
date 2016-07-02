@@ -1,3 +1,4 @@
+<h1> <%= @user.username %> </h1>
 <h2>All Roles</h2>
 
  <%= button_to "Add New Role", new_admin_user_user_role_path(@user), method: :get%>
@@ -14,8 +15,8 @@
       Delete
     </th>
   </tr>
-  <tr>
     <% @user.user_roles.each do |user_role| %>
+    <tr>
     <td> <%= user_role.role.name %> </td>
 
     <td> <% if user_role.charity %>
@@ -24,6 +25,6 @@
     </td>
     <td>
     </td>
-    <% end %>
   </tr>
+    <% end %>
 </table>
