@@ -17,6 +17,7 @@ Rails.application.routes.draw do
   delete '/logout', to: "sessions#destroy"
 
   get '/dashboard', to: "users#show"
+  get 'admin/dashboard', to: "admin/dashboard#index"
 
   resources :donations, only: [:index, :show, :new, :create]
 

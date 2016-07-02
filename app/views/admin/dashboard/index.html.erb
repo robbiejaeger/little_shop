@@ -1,0 +1,5 @@
+<ul>
+  <% @charities.each do |charity| %>
+  <li><%= link_to charity.name, admin_charity_dashboard_path(charity.slug) %></li>
+  <% end %>
+</ul> 
