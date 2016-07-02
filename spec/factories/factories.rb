@@ -29,13 +29,12 @@ FactoryGirl.define do
     "Needs-Category-#{n}"
   end
 
+
   factory :need do
     name { generate(:need_name)}
     description { generate(:need_description)}
     price { generate(:need_price)}
-    charity
     needs_category
-    status
   end
 
   sequence :need_name do |n|
@@ -55,13 +54,6 @@ FactoryGirl.define do
     password "password"
     email "fake@fake.com"
   end
-
-  # factory :business_admin_user, class: User do
-  #   username { generate(:username)}
-  #   password "password"
-  #   email "fake@fake.com"
-  #   charity
-  # end
 
   sequence :username do |n|
     "user#{n}"
@@ -106,14 +98,6 @@ FactoryGirl.define do
 
   factory :donation do
     user
-  end
-
-  sequence :status_name, ["Active", "Deactivated", "Suspended"].cycle do |n|
-    n
-  end
-
-  factory :status do
-    name { generate(:status_name)}
   end
 
 end
