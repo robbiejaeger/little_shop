@@ -5,11 +5,14 @@ class Seed
     create_charities
     create_need_categories
     create_users
+    create_statuses
     create_needs
     create_recipients
     create_donations
     create_need_items
     create_donation_items
+    create_roles
+    create_admins
   end
 
   def create_charities
@@ -106,10 +109,40 @@ class Seed
       description: Faker::Commerce.color,
       price: Faker::Commerce.price,
       needs_category_id: needs_category.id,
-      date: Faker::Date.forward(25)
+      date: Faker::Date.forward(25),
+      charity_id: rand(1..20)
       )
     end
   end
+
+  def create_roles
+    Role.create!(name: "registered_user")
+    Role.create!(name: "platform_admin")
+    Role.create!(name: "business_owner")
+    Role.create!(name: "business_admin")
+  end
+
+  def create_statuses
+    Status.create(name: "Active")
+    Status.create(name: "Inactive")
+    Status.create(name: "Suspended")
+  end
+
+  def create_admins
+    business_admin = User.create(username: "business_admin", email: "user@user.com", password: "password")
+    business_admin.user_roles.create(role: Role.find_by(name: "business_admin"),
+                                                        charity_id: 1)
+    business_owner = User.create(username: "business_owner", email: "user@user.com", password: "password")
+    business_owner.user_roles.create(role: Role.find_by(name: "business_owner"),
+                                                        charity_id: 1)
+    platform_admin = User.create(username: "platform_admin", email: "user@user.com", password: "password")
+    platform_admin.user_roles.create(role: Role.find_by(name: "platform_admin"),
+                                                        charity_id: 1)
+  end
+
+
 end
+
+
 
 Seed.new

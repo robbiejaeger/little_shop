@@ -15,6 +15,10 @@ class User < ActiveRecord::Base
 
   attr_accessor :current_password
 
+  def current_admin?
+    platform_admin? || business_owner? || business_admin?
+  end
+
   def platform_admin?
     roles.exists?(name: "platform_admin")
   end
