@@ -7,6 +7,7 @@ RSpec.feature "admin can see individual need for charity" do
     user = create(:user)
     charity = create(:charity)
     user_role = UserRole.create(role_id: role.id, user_id: user.id, charity_id: charity.id)
+    status = Status.create(name: "Active")
 
     need1 = charity.needs.create(name: "Need-1", description: "description for Need-1", price: 10, needs_category: create(:needs_category))
 
@@ -23,15 +24,18 @@ RSpec.feature "admin can see individual need for charity" do
     expect(page).to have_content("#{need1.description}")
     expect(page).to have_content("#{need1.price}")
     expect(page).to have_content("#{need1.needs_category.name}")
+    expect(page).to have_content("Active")
+    expect(page).to have_link("Deactivate")
 
   end
 
-  scenario "business owner can a need" do
+  scenario "business owner can see a need" do
 
     role = Role.create(name: 'business_owner')
     user = create(:user)
     charity = create(:charity)
     user_role = UserRole.create(role_id: role.id, user_id: user.id, charity_id: charity.id)
+    status = Status.create(name: "Active")
 
     need1 = charity.needs.create(name: "Need-1", description: "description for Need-1", price: 10, needs_category: create(:needs_category))
 
@@ -48,6 +52,8 @@ RSpec.feature "admin can see individual need for charity" do
     expect(page).to have_content("#{need1.description}")
     expect(page).to have_content("#{need1.price}")
     expect(page).to have_content("#{need1.needs_category.name}")
+    expect(page).to have_content("Active")
+    expect(page).to have_link("Deactivate")
 
   end
 
@@ -58,6 +64,7 @@ RSpec.feature "admin can see individual need for charity" do
     charity = create(:charity)
     user_role = UserRole.create(role_id: role.id, user_id: user.id, charity_id: charity.id)
     charity_two = create(:charity)
+    status = Status.create(name: "Active")
 
     need1 = charity_two.needs.create(name: "Need-1", description: "description for Need-1", price: 10, needs_category: create(:needs_category))
 
@@ -68,6 +75,7 @@ RSpec.feature "admin can see individual need for charity" do
     expect(current_path).to eq(root_path)
     expect(page).to have_content("not authorized")
 
+
   end
 
   scenario "business admin cannot see needs of other charity" do
@@ -77,6 +85,7 @@ RSpec.feature "admin can see individual need for charity" do
     charity = create(:charity)
     user_role = UserRole.create(role_id: role.id, user_id: user.id, charity_id: charity.id)
     charity_two = create(:charity)
+    status = Status.create(name: "Active")
 
     need1 = charity_two.needs.create(name: "Need-1", description: "description for Need-1", price: 10, needs_category: create(:needs_category))
 
@@ -95,6 +104,7 @@ RSpec.feature "admin can see individual need for charity" do
     user = create(:user)
     charity = create(:charity)
     user_role = UserRole.create(role_id: role.id, user_id: user.id)
+    status = Status.create(name: "Active")
 
     need1 = charity.needs.create(name: "Need-1", description: "description for Need-1", price: 10, needs_category: create(:needs_category))
 
@@ -109,6 +119,8 @@ RSpec.feature "admin can see individual need for charity" do
     expect(current_path).to eq(admin_charity_need_path(charity.slug, need1))
 
     expect(page).to have_content("#{need1.name}")
+    expect(page).to have_content("Active")
+    expect(page).to have_link("Suspend")
 
   end
 
@@ -119,6 +131,7 @@ RSpec.feature "admin can see individual need for charity" do
     user = create(:user)
     charity = create(:charity)
     user_role = UserRole.create(role_id: role.id, user_id: user.id, charity: charity)
+    status = Status.create(name: "Active")
     need1 = charity.needs.create(name: "Need-1", description: "description for Need-1", price: 10, needs_category: create(:needs_category))
 
     allow_any_instance_of(ApplicationController).to receive(:current_user).and_return( user )

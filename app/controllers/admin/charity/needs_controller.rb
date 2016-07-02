@@ -15,8 +15,8 @@ class Admin::Charity::NeedsController < Admin::BaseController
   end
 
   def create
-    @need = Need.new(need_params)
     @charity = Charity.find_by(slug: params[:charity_slug])
+    @need = @charity.needs.new(need_params)
     if @need.save
       redirect_to admin_charity_need_path(@charity.slug, @need)
     else
@@ -24,20 +24,25 @@ class Admin::Charity::NeedsController < Admin::BaseController
     end
   end
 
-
   def edit
-
+    @needs_category_options = NeedsCategory.form_options
+    @need = Need.find(params[:id])
   end
 
   def update
-
+    @need = Need.find(params[:id])
+    if @need.update(need_params)
+      flash[:success] = "Your updates have been saved"
+      redirect_to admin_charity_need_path(@need.charity.slug, @need)
+    else
+      render :edit
+    end
   end
 
   private
 
   def need_params
-    params.require(:need).permit(:name, :description, :price, :needs_category_id, :charity_id)
+    params.require(:need).permit(:name, :description, :price, :needs_category_id, :charity_id, :status_id)
   end
-
 
 end

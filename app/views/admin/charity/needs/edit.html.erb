@@ -1,6 +1,5 @@
-<h2>Create a New Need</h2>
-
-<%= form_for [:admin, :charity, @need] do |f| %>
+<h2>Edit Need</h2>
+<%= form_for [:admin, :charity, @need], :url => admin_charity_need_path(@need.charity.slug, @need) do |f| %>
 <%= f.label :name %>
 <%= f.text_field :name %>
 <%= f.label :description %>

@@ -8,4 +8,10 @@ class Need < ActiveRecord::Base
   has_many :donation_items
   belongs_to :needs_category
   belongs_to :charity
+  belongs_to :status
+
+  scope :active, -> {where("status_id = ?", 1)}
+  scope :inactive, -> {where("status_id = ?", 2)}
+  scope :suspended, -> {where("status_id = ?", 3)}
+
 end

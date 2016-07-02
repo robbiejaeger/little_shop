@@ -7,6 +7,7 @@ RSpec.feature "admin can see all needs for charity" do
     user = create(:user)
     charity = create(:charity)
     user_role = UserRole.create(role_id: role.id, user_id: user.id, charity_id: charity.id)
+    create(:status)
 
     need1 = charity.needs.create(name: "Need-1", description: "description for Need-1", price: 10, needs_category: create(:needs_category))
     need2 = charity.needs.create(name: "Need-2", description: "description for Need-2", price: 10, needs_category: create(:needs_category))
@@ -28,6 +29,7 @@ RSpec.feature "admin can see all needs for charity" do
     user = create(:user)
     charity = create(:charity)
     user_role = UserRole.create(role_id: role.id, user_id: user.id, charity_id: charity.id)
+    create(:status)
 
     need1 = charity.needs.create(name: "Need-1", description: "description for Need-1", price: 10, needs_category: create(:needs_category))
     need2 = charity.needs.create(name: "Need-2", description: "description for Need-2", price: 10, needs_category: create(:needs_category))
@@ -50,6 +52,7 @@ RSpec.feature "admin can see all needs for charity" do
     charity = create(:charity)
     user_role = UserRole.create(role_id: role.id, user_id: user.id, charity_id: charity.id)
     charity_two = create(:charity)
+    create(:status)
 
     need1 = charity.needs.create(name: "Need-1", description: "description for Need-1", price: 10, needs_category: create(:needs_category))
     need2 = charity.needs.create(name: "Need-2", description: "description for Need-2", price: 10, needs_category: create(:needs_category))
@@ -70,6 +73,7 @@ RSpec.feature "admin can see all needs for charity" do
     charity = create(:charity)
     user_role = UserRole.create(role_id: role.id, user_id: user.id, charity_id: charity.id)
     charity_two = create(:charity)
+    create(:status)
 
     need1 = charity.needs.create(name: "Need-1", description: "description for Need-1", price: 10, needs_category: create(:needs_category))
     need2 = charity.needs.create(name: "Need-2", description: "description for Need-2", price: 10, needs_category: create(:needs_category))
@@ -89,6 +93,7 @@ RSpec.feature "admin can see all needs for charity" do
     user = create(:user)
     charity = create(:charity)
     user_role = UserRole.create(role_id: role.id, user_id: user.id)
+    create(:status)
 
     need1 = charity.needs.create(name: "Need-1", description: "description for Need-1", price: 10, needs_category: create(:needs_category))
     need2 = charity.needs.create(name: "Need-2", description: "description for Need-2", price: 10, needs_category: create(:needs_category))

@@ -35,6 +35,7 @@ FactoryGirl.define do
     price { generate(:need_price)}
     charity
     needs_category
+    status
   end
 
   sequence :need_name do |n|
@@ -105,6 +106,14 @@ FactoryGirl.define do
 
   factory :donation do
     user
+  end
+
+  sequence :status_name, ["Active", "Deactivated", "Suspended"].cycle do |n|
+    n
+  end
+
+  factory :status do
+    name { generate(:status_name)}
   end
 
 end
