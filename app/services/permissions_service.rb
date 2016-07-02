@@ -69,6 +69,12 @@ class PermissionsService
       return true if controller == "admin/charity/needs" && action == "create"
       return true if controller == "admin/charity/needs" && action == "edit"
       return true if controller == "admin/charity/needs" && action == "update"
+      return true if controller == "admin/charity/recipients" && action == "index"
+      return true if controller == "admin/charity/recipients" && action == "show"
+      return true if controller == "admin/charity/recipients" && action == "edit"
+      return true if controller == "admin/charity/recipients" && action == "update"
+      return true if controller == "admin/charity/recipients" && action == "new"
+      return true if controller == "admin/charity/recipients" && action == "destroy"
       return true if controller == "admin/charity/dashboards" && action == "show"
     end
     return true if controller == "sessions" && action == "new"

@@ -1,4 +1,4 @@
-jclass Charity < ActiveRecord::Base
+class Charity < ActiveRecord::Base
   validates :name, presence: true
   validates :description, presence: true
 
@@ -28,5 +28,4 @@ jclass Charity < ActiveRecord::Base
   def active_recipients
     recipients.find_all { |recipient| !recipient.active_need_items.empty? }
   end
-
 end
