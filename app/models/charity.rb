@@ -1,4 +1,4 @@
-jclass Charity < ActiveRecord::Base
+class Charity < ActiveRecord::Base
   validates :name, presence: true
   validates :description, presence: true
 
