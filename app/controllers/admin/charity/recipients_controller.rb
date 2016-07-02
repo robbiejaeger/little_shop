@@ -21,13 +21,13 @@ class Admin::Charity::RecipientsController < Admin::BaseController
   end
 
   def create
-    @recipient = Recipient.new(recipient_params)
     @charity = Charity.find_by(slug: params[:charity_slug])
+    @recipient = @charity.recipients.new(recipient_params)
 
     if @recipient.save
       redirect_to admin_charity_recipient_path(@charity.slug, @recipient)
     else
-      render :edit
+      render :new
     end
   end
 

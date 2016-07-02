@@ -75,6 +75,7 @@ class PermissionsService
       return true if controller == "admin/charity/recipients" && action == "update"
       return true if controller == "admin/charity/recipients" && action == "new"
       return true if controller == "admin/charity/recipients" && action == "destroy"
+      return true if controller == "admin/charity/recipients" && action == "create"
       return true if controller == "admin/charity/dashboards" && action == "show"
     end
     return true if controller == "sessions" && action == "new"
@@ -97,11 +98,17 @@ class PermissionsService
     return true if controller == "charities" && action == "show"
     return true if controller == "causes" && action == "show"
     return true if controller == "needs_categories" && action == "show"
-    return true if controller == "charity/recipients" && action == "show"
   end
 
   def business_owner_permissions
     if user.charities.exists?(id: charity_id)
+      return true if controller == "admin/charity/recipients" && action == "index"
+      return true if controller == "admin/charity/recipients" && action == "show"
+      return true if controller == "admin/charity/recipients" && action == "edit"
+      return true if controller == "admin/charity/recipients" && action == "update"
+      return true if controller == "admin/charity/recipients" && action == "new"
+      return true if controller == "admin/charity/recipients" && action == "destroy"
+      return true if controller == "admin/charity/recipients" && action == "create"
       return true if controller == "admin/charity/needs" && action == "index"
       return true if controller == "admin/charity/needs" && action == "show"
       return true if controller == "admin/charity/needs" && action == "edit"
@@ -111,7 +118,6 @@ class PermissionsService
       return true if controller == "admin/charity/needs" && action == "edit"
       return true if controller == "admin/charity/needs" && action == "update"
       return true if controller == "admin/charity/dashboards" && action == "show"
-
     end
     return true if controller == "sessions" && action == "new"
     return true if controller == "sessions" && action == "create"
@@ -133,7 +139,6 @@ class PermissionsService
     return true if controller == "charities" && action == "show"
     return true if controller == "causes" && action == "show"
     return true if controller == "needs_categories" && action == "show"
-    return true if controller == "charity/recipients" && action == "show"
   end
 
   def platform_admin_permissions
@@ -143,6 +148,13 @@ class PermissionsService
     return true if controller == "admin/charity/needs" && action == "update"
     return true if controller == "admin/charity/needs" && action == "new"
     return true if controller == "admin/charity/needs" && action == "create"
+    return true if controller == "admin/charity/recipients" && action == "index"
+    return true if controller == "admin/charity/recipients" && action == "show"
+    return true if controller == "admin/charity/recipients" && action == "edit"
+    return true if controller == "admin/charity/recipients" && action == "update"
+    return true if controller == "admin/charity/recipients" && action == "new"
+    return true if controller == "admin/charity/recipients" && action == "destroy"
+    return true if controller == "admin/charity/recipients" && action == "create"
     return true if controller == "admin/charity/dashboards" && action == "show"
     return true if controller == "sessions" && action == "new"
     return true if controller == "sessions" && action == "create"

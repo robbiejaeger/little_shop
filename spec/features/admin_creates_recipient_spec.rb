@@ -15,7 +15,8 @@ RSpec.feature "admin can add recipient for charity" do
     fill_in "Name", with: "Recipient-1"
     fill_in "Description", with: "description"
     click_on "Create Recipient"
-    expect(current_path).to eq(admin_charity_recipient_path(charity.slug, charity.recipients.first))
+    expect(current_path).to eq(admin_charity_recipient_path(charity.slug, Recipient.first))
+    save_and_open_page
     expect(page).to have_content("Recipient-1")
     expect(page).to have_content("description")
     expect(charity.recipients.count).to eq(1)
