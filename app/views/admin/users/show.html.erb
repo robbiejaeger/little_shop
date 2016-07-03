@@ -14,7 +14,7 @@
       <% if current_user.delete_permission? %><th>Delete</th><%end%>
     </tr>
     <% @user_roles.each do |user_role| %>
-      <tr class="user_role.user.id%>">
+      <tr class="<%=user_role.user.username%>">
       <td> <%= user_role.role.name %> </td>
       <td> <% if user_role.charity %><%= user_role.charity.name%><% end %></td>
       <% if current_user.delete_permission? %>

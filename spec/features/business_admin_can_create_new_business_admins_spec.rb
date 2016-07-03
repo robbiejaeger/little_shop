@@ -56,7 +56,7 @@ RSpec.feature "business owner or admin can create new business admins" do
 
     expect(current_path).to eq(admin_user_path(User.find_by(username: new_affiliated_user.username)))
 
-    within(".#{charity1.name}-#{new_affiliated_user.id}") do
+    within(".#{new_affiliated_user.username}") do
       expect(page).to have_content(biz_admin.name)
       expect(page).to have_content(charity1.name)
     end

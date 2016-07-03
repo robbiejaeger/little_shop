@@ -35,11 +35,4 @@ RSpec.feature "admin can add user role" do
     expect(user.user_roles.count).to eq(2)
   end
 
-  xscenario "bus admin adds user role for their charity" do
-
-  end
-
-  xscenario "bus admin cannot add user role for another charity" do
-
-  end
 end
