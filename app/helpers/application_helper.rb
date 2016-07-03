@@ -34,7 +34,7 @@ module ApplicationHelper
 
   def deactivate_charity_link(charity)
     link_to "Deactivate",
-        admin_charity_path(charity,
+        admin_charity_charity_path(charity.slug, charity,
         :charity => { :status_id => 2}),
         :method => :put,
         :confirm => "Are you sure?",
@@ -44,7 +44,7 @@ module ApplicationHelper
   def activate_charity_link(charity)
 
     link_to "Activate",
-        admin_charity_path(charity,
+        admin_charity_charity_path(charity.slug, charity,
         :charity => { :status_id => 1}),
         :method => :put,
         :confirm => "Are you sure?",
@@ -53,7 +53,7 @@ module ApplicationHelper
 
   def suspend_charity_link(charity)
     link_to "Suspend",
-        admin_charity_path(charity,
+        admin_charity_charity_path(charity.slug, charity,
         :charity => { :status_id => 3}),
         :method => :put,
         :confirm => "Are you sure?",

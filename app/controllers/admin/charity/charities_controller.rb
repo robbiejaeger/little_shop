@@ -1,4 +1,4 @@
-class Admin::CharitiesController <ApplicationController
+class Admin::Charity::CharitiesController <ApplicationController
 
   def edit
     @charity = Charity.find(params[:id])
@@ -10,7 +10,7 @@ class Admin::CharitiesController <ApplicationController
     if current_user.platform_admin?
       redirect_to admin_dashboard_path
     else
-      redirect_to admin_charity_dashboard_path(@charity)
+      redirect_to admin_charity_dashboard_path(@charity.slug)
     end
   end
 
