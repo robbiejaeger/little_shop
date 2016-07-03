@@ -16,8 +16,7 @@ RSpec.feature "admin can add need items for recipients" do
     recipient = Recipient.create(name: "Recipient",
                                  description: "Recipient description",
                                 charity_id: charity.id)
-    # need_item = NeedItem.create(need_id: need.id , recipient_id: recipient.id,
-    #                             quantity: 2,  deadline: "2016-07-24 00:00:00" )
+
     allow_any_instance_of(ApplicationController).to receive(:current_user).and_return( user )
 
     visit admin_charity_recipients_path(charity.slug)
@@ -25,7 +24,7 @@ RSpec.feature "admin can add need items for recipients" do
     within ".#{recipient.name}" do
       click_on "View Details"
     end
-save_and_open_page
+
     expect(current_path).to eq(admin_charity_recipient_path(charity.slug, recipient))
 
     expect(page).to have_content(recipient.name)

@@ -33,6 +33,25 @@ RSpec.feature "admin edits need items for recipient" do
       click_on "Edit Need"
     end
 
+    expect(current_path).to eq(edit_admin_charity_recipient_need_item_path(charity.slug, recipient, need_item))
 
+    select 7, from: "need_item[quantity]"
+    fill_in "need_item[deadline]", with: "2016/07/22"
+
+    click_on "Update Need"
+
+    expect(current_path).to eq(admin_charity_recipient_path(charity.slug, recipient))
+
+    within(".#{need.name}") do
+      expect(page).to have_content(need.name)
+    end
+
+    need_item_quantity = recipient.need_items.find_by(need_id: need.id).quantity
+
+    within(".quantity-#{need_item_quantity}") do
+      expect(page).to have_content(7)
+    end
+
+    expect(page).to have_content("July 22, 2016")
   end
 end

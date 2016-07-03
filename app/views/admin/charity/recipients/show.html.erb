@@ -37,6 +37,9 @@
       <td class="deadline-<%= need_item.deadline %>">
         <%= format_date(need_item.deadline) %>
       </td>
+      <td>
+        <%= link_to "Edit Need", edit_admin_charity_recipient_need_item_path(@charity.slug, @recipient, need_item) %>
+      </td>
     </tr>
       <% end %>
       <% end  %>
