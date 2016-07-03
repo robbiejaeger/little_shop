@@ -8,6 +8,8 @@ RSpec.feature "business owner or admin can create new business admins" do
     biz_admin = Role.create(name: "business_admin")
 
     admin, affiliated_admin, new_affiliated_user, unaffiliated_admin = create_list(:user, 4)
+    Status.create(name: 'Active')
+    Status.create(name: 'Inactive')
     charity1, charity2 = create_list(:charity, 2)
 
     admin_role = UserRole.create(role_id: biz_admin.id,

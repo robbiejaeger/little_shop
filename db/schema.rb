@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20160702022929) do
+ActiveRecord::Schema.define(version: 20160703152718) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -34,7 +34,12 @@ ActiveRecord::Schema.define(version: 20160702022929) do
     t.integer  "charity_photo_file_size"
     t.datetime "charity_photo_updated_at"
     t.string   "slug"
+    t.integer  "status_id",                  default: 2
+    t.datetime "created_at"
+    t.datetime "updated_at"
   end
+
+  add_index "charities", ["status_id"], name: "index_charities_on_status_id", using: :btree
 
   create_table "donation_items", force: :cascade do |t|
     t.integer  "quantity"
@@ -134,6 +139,7 @@ ActiveRecord::Schema.define(version: 20160702022929) do
     t.string   "email"
   end
 
+  add_foreign_key "charities", "statuses"
   add_foreign_key "donation_items", "donations"
   add_foreign_key "donation_items", "need_items"
   add_foreign_key "donations", "users"

@@ -7,6 +7,8 @@ RSpec.feature "admin can add user role" do
     bus_owner_role = Role.create(name: "business_owner")
     reg_user_role= Role.create(name: "registered_user")
     admin, user = create_list(:user, 2)
+    Status.create(name: 'Active')
+    Status.create(name: 'Inactive')
     charity1, charity2 = create_list(:charity, 2)
     admin_role = UserRole.create(role_id: platform_role.id, user_id: admin.id)
     user_role = UserRole.create(role_id: reg_user_role.id, user_id: user.id)

@@ -37,6 +37,7 @@
             <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button"
             aria-haspopup="true" aria-expanded="false">Charities <span class="caret"></span></a>
             <ul class="dropdown-menu">
+              <!-- CHANGE TO .all_active_charities - breaking bc of status seeds? -->
               <% Charity.all.each do |charity| %>
               <li role="separator" class="divider"></li>
               <li><a href="/<%=charity.slug%>"><%= charity.name %></a></li>

@@ -7,7 +7,10 @@ RSpec.feature "admin can delete user role" do
     bus_own_role = Role.create(name: "business_owner")
     reg_user_role = Role.create(name: "registered_user")
     bus_owner, bus_admin = create_list(:user, 2)
+    Status.create(name: 'Active')
+    Status.create(name: 'Inactive')
     charity = create(:charity)
+
     bus_owner.user_roles.create(role_id: bus_own_role.id, charity_id: charity.id)
     target_role = bus_admin.user_roles.create(role_id: bus_admin_role.id, charity_id: charity.id)
 
@@ -37,6 +40,8 @@ RSpec.feature "admin can delete user role" do
     bus_own_role = Role.create(name: "business_owner")
     reg_user_role = Role.create(name: "registered_user")
     bus_owner, bus_admin = create_list(:user, 2)
+    Status.create(name: 'Active')
+    Status.create(name: 'Inactive')
     charity, other_charity = create_list(:charity, 2)
     bus_owner.user_roles.create(role_id: bus_own_role.id, charity_id: charity.id)
     bus_admin.user_roles.create(role_id: bus_admin_role.id, charity_id: other_charity.id)
@@ -68,6 +73,8 @@ RSpec.feature "admin can delete user role" do
     bus_own_role = Role.create(name: "business_owner")
     reg_user_role = Role.create(name: "registered_user")
     platform_admin, bus_admin = create_list(:user, 2)
+    Status.create(name: 'Active')
+    Status.create(name: 'Inactive')
     charity = create(:charity)
     platform_admin.user_roles.create(role_id: platform_role.id)
     bus_admin.user_roles.create(role_id: bus_own_role.id, charity_id: charity.id)
