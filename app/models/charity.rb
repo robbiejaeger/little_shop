@@ -13,6 +13,8 @@ class Charity < ActiveRecord::Base
 
   before_create :create_slug
 
+  default_scope  { order(:name => :asc) }
+
   def create_slug
     self.slug = self.name.parameterize
   end
@@ -24,6 +26,19 @@ class Charity < ActiveRecord::Base
   def self.all_active_charities
     all.where(status_id: 1)
   end
+
+  def self.all_inactive_charities
+    all.where(status_id: 2)
+  end
+
+  def self.all_suspended_charities
+    all.where(status_id: 3)
+  end
+
+  def self.all_to_approve
+    all.where("status_id = ? AND created_at > ?", 2, 2.weeks.ago)
+  end
+
 
   def associated_recipient?(recipient_id)
     recipient_ids = recipients.pluck(:id)

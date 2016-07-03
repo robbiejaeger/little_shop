@@ -2,9 +2,29 @@
 
 <h4><%= link_to "Manage Users for All Charities", admin_users_path %></h4>
 
-<h4>Select a Charity</h4>
+<h4>Charities</h4>
+<% if current_user.platform_admin? %>
+  <div class="to-approve">
+
+  </div>
+
+
+  <div class="active-charities">
+
+  </div>
+
+  <div class="inactive-charities">
+
+  </div>
+
+  <div class="suspended-charities">
+
+  </div>
+
+<% else %>
 <ul>
   <% @charities.each do |charity| %>
   <li><%= link_to charity.name, admin_charity_dashboard_path(charity.slug) %></li>
   <% end %>
 </ul>
+<% end %>

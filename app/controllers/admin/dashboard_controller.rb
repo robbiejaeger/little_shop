@@ -1,7 +1,12 @@
 class Admin::DashboardController < ApplicationController
 
   def index
-    @charities = current_user.charities_to_display
+    if current_user.platform_admin?
+      @active_charities
+      @
+    else
+      @charities = current_user.charities_to_display
+    end
   end
 
 end
