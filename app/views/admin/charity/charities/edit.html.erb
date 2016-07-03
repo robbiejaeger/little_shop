@@ -1,0 +1,8 @@
+<h2>Edit Inforamtion for <%= @charity.name %></h2>
+
+<%= form_for [:admin, :charity, @charity], multipart: true, :url => admin_charity_charity_path(@charity.slug, @charity) do |f| %>
+
+  <%= render partial: "/shared/charity_form", locals: {f: f}  %>
+
+  <%= f.submit "Save Changes", class: "btn btn-primary" %>
+<% end %>

@@ -7,6 +7,8 @@
 
 <%= link_to "Manage Recipients", admin_charity_recipients_path(@charity.slug), class: "btn btn-success" %>
 
+<%= link_to "Update Charity", edit_admin_charity_charity_path(@charity.slug, @charity), class: "btn btn-info" %>
+
 
 <%if current_user.platform_admin? && !@charity.suspended? %>
   <%= suspend_charity_link(@charity) %>
