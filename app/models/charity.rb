@@ -23,6 +23,14 @@ class Charity < ActiveRecord::Base
     status_id == 1
   end
 
+  def suspended?
+    status_id == 3
+  end
+
+  def inactive?
+    status_id == 2
+  end
+
   def self.all_active_charities
     all.where(status_id: 1)
   end
@@ -35,7 +43,7 @@ class Charity < ActiveRecord::Base
     all.where(status_id: 3)
   end
 
-  def self.all_to_approve
+  def self.all_pending_charities
     all.where("status_id = ? AND created_at > ?", 2, 2.weeks.ago)
   end
 

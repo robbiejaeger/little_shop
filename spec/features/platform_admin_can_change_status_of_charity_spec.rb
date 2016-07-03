@@ -10,6 +10,7 @@ RSpec.feature "admin can change status for charity" do
     Status.create(name: 'Inactive')
     Status.create(name: 'Suspended')
     charity = create(:inactive_charity)
+
     allow_any_instance_of(ApplicationController).to receive(:current_user).and_return( user )
 
     expect(charity.status.name).to eq("Inactive")
@@ -17,28 +18,31 @@ RSpec.feature "admin can change status for charity" do
 
     within(".to-approve") do
       expect(page).to have_content(charity.name)
-      click_on "Review"
+      click_on "View"
     end
 
     expect(current_path).to eq(admin_charity_dashboard_path(charity.slug))
 
-    expect(page).to have_link("Suspend Charity")
-    expect(page).to have_link("Actviate Charity")
+    expect(page).to have_link("Suspend")
+    expect(page).to have_link("Activate")
 
-    click_on "Activate Charity"
-    expect(charity.status.name).to eq("Active")
+    click_on "Activate"
+
     expect(current_path).to eq(admin_dashboard_path)
 
     within(".to-approve") do
       expect(page).to_not have_content(charity.name)
     end
 
+    expect(Charity.find(charity.id).status.name).to eq("Active")
+
     within(".active-charities") do
       expect(page).to have_content(charity.name)
-      click_on "Suspend"
+      click_on "View"
     end
 
-    expect(charity.status.name).to eq("Suspended")
+    click_on "Suspend"
+    expect(Charity.find(charity.id).status.name).to eq("Suspended")
 
     within(".active-charities") do
       expect(page).to_not have_content(charity.name)
@@ -46,7 +50,11 @@ RSpec.feature "admin can change status for charity" do
 
     within(".suspended-charities") do
       expect(page).to have_content(charity.name)
+      click_on "View"
     end
+save_and_open_page
+    click_on "Activate"
+    expect(Charity.find(charity.id).status.name).to eq("Active")
 
   end
 
