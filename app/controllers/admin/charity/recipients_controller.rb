@@ -37,10 +37,11 @@ class Admin::Charity::RecipientsController < Admin::BaseController
   end
 
   def update
-    @recipient = Recipient.new(recipient_params)
     @charity = Charity.find_by(slug: params[:charity_slug])
+    @recipient = @charity.recipients.find(params[:id])
 
-    if @recipient.save
+    if @recipient.update(recipient_params)
+      flash[:success] = "Your updates have been saved"
       redirect_to admin_charity_recipient_path(@charity.slug, @recipient)
     else
       render :edit

@@ -9,7 +9,7 @@
     </tr>
 
   <% @recipients.each do |recipient| %>
-    <tr class="<%=recipient.name%>">
+    <tr class="<%= recipient.name %>">
       <td><%= recipient.name %> </td>
       <td> <%= link_to "View Details", admin_charity_recipient_path(@charity.slug, recipient) %> </td>
       <td> <%= link_to "Update", edit_admin_charity_recipient_path(@charity.slug, recipient) %> </td>
