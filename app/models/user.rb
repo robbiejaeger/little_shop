@@ -26,6 +26,9 @@ class User < ActiveRecord::Base
     end
   end
 
+  def charities_to_display #ADD TEST
+    platform_admin? ? Charity.all : charities
+  end
 
   def current_admin?
     platform_admin? || business_owner? || business_admin?

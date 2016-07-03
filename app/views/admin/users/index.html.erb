@@ -10,7 +10,6 @@
       <%if current_user.delete_permission? %><th></th><%end%>
     </tr>
     <% charity.users.each do |user| %>
-    <%# byebug %>
       <tr class="charity-<%=user.username%>">
         <td><%= user.username%></td>
         <td><%= user.role_by_charity(charity).name if user.role_by_charity(charity)%></td>
