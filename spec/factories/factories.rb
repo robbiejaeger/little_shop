@@ -19,6 +19,18 @@ FactoryGirl.define do
     status_id 2
   end
 
+  factory :active_charity, class: Charity do
+    name { generate(:charity_name)}
+    description { generate(:charity_description)}
+    status_id 1
+  end
+
+  factory :suspended_charity, class: Charity do
+    name { generate(:charity_name)}
+    description { generate(:charity_description)}
+    status_id 3
+  end
+
   sequence :charity_name do |n|
     "Charity-#{n}"
   end
