@@ -78,6 +78,11 @@ class PermissionsService
       return true if controller == "admin/charity/recipients" && action == "destroy"
       return true if controller == "admin/charity/recipients" && action == "create"
       return true if controller == "admin/charity/dashboards" && action == "show"
+      return true if controller == "admin/charity/need_items" && action == "new"
+      return true if controller == "admin/charity/need_items" && action == "create"
+      return true if controller == "admin/charity/need_items" && action == "edit"
+      return true if controller == "admin/charity/need_items" && action == "update"
+
     end
     return true if controller == "sessions" && action == "new"
     return true if controller == "sessions" && action == "create"
@@ -126,6 +131,10 @@ class PermissionsService
       return true if controller == "admin/charity/needs" && action == "edit"
       return true if controller == "admin/charity/needs" && action == "update"
       return true if controller == "admin/charity/dashboards" && action == "show"
+      return true if controller == "admin/charity/need_items" && action == "new"
+      return true if controller == "admin/charity/need_items" && action == "create"
+      return true if controller == "admin/charity/need_items" && action == "edit"
+      return true if controller == "admin/charity/need_items" && action == "update"
     end
     return true if controller == "admin/user_roles" && action == "new"
     return true if controller == "admin/user_roles" && action == "create"
@@ -163,6 +172,10 @@ class PermissionsService
     return true if controller == "admin/charity/needs" && action == "update"
     return true if controller == "admin/charity/needs" && action == "new"
     return true if controller == "admin/charity/needs" && action == "create"
+    return true if controller == "admin/charity/need_item" && action == "new"
+    return true if controller == "admin/charity/need_item" && action == "create"
+    return true if controller == "admin/charity/need_item" && action == "edit"
+    return true if controller == "admin/charity/need_item" && action == "update"
     return true if controller == "admin/charity/recipients" && action == "index"
     return true if controller == "admin/charity/recipients" && action == "show"
     return true if controller == "admin/charity/recipients" && action == "edit"

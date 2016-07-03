@@ -1,14 +1,15 @@
 <%= link_to "Add Recipient", new_admin_charity_recipient_path(@charity.slug) %>
 <h1>Recipients</h1>
 
-  <table>
+  <!-- <table>
     <tr>
       <th>Name</th>
       <th></th>
       <th></th>
-    </tr>
-
+    </tr> -->
+<div class="row"></div>
   <% @recipients.each do |recipient| %>
+  <div class=
     <tr class="<%= recipient.name %>">
       <td><%= recipient.name %> </td>
       <td> <%= link_to "View Details", admin_charity_recipient_path(@charity.slug, recipient) %> </td>
