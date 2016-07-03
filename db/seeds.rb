@@ -1,11 +1,11 @@
 class Seed
 
   def initialize
+    create_statuses
     create_causes
     create_charities
     create_need_categories
     create_users
-    create_statuses
     create_needs
     create_recipients
     create_donations
@@ -19,8 +19,8 @@ class Seed
     20.times do
       charity = Charity.create!(
       name: Faker::Company.name,
-      description: Faker::Company.bs
-      )
+      description: Faker::Company.bs,
+      status_id: 1)
       rand(1..3).times do
         cause = Cause.find(rand(1..10))
         if !charity.causes.include?(cause)

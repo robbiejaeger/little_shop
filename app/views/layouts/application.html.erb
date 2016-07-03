@@ -37,7 +37,7 @@
             <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button"
             aria-haspopup="true" aria-expanded="false">Charities <span class="caret"></span></a>
             <ul class="dropdown-menu">
-              <% Charity.all.each do |charity| %>
+              <% Charity.all_active_charities.each do |charity| %>
               <li role="separator" class="divider"></li>
               <li><a href="/<%=charity.slug%>"><%= charity.name %></a></li>
               <% end %>
@@ -61,7 +61,7 @@
         <button type="submit" class="btn btn-default">Submit</button>
         </form>
         <ul class="nav navbar-nav navbar-right">
-          <% if current_user.current_admin? %>
+          <% if current_user && current_user.current_admin? %>
             <li class="custom-nav"> <%= link_to "Logged in as {current_user.username}", root_path %> </li>
             <li class="custom-nav"><%= link_to "Logout", logout_path, method: :delete %></li>
           <% elsif current_user %>

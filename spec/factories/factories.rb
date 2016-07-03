@@ -108,7 +108,7 @@ FactoryGirl.define do
     user
   end
 
-  sequence :status_name, ["Active", "Deactivated", "Suspended"].cycle do |n|
+  sequence :status_name, ["Active", "Inactive", "Suspended"].cycle do |n|
     n
   end
 

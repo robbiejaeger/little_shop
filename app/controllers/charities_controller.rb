@@ -1,12 +1,21 @@
 class CharitiesController < ApplicationController
 
   def index
-    @charities = Charity.all
+    @charities = Charity.all_active_charities
   end
 
   def show
     @charity = Charity.find_by(slug: params[:charity_slug])
-    @recipients = @charity.active_recipients
+    if @charity && @charity.active?
+      @recipients = @charity.active_recipients
+    else
+      flash[:danger] =
+      "Sorry, it seems that is not an active charity."
+      redirect_to root_path and return
+    end
+
+
+
   end
 
   def new
@@ -17,7 +26,7 @@ class CharitiesController < ApplicationController
     @charity = Charity.new(charity_params)
     if @charity.save
       @charity.create_charity_owner(current_user)
-      redirect_to dashboard_path(current_user)
+      redirect_to dashboard_path
     else
       render :new
     end

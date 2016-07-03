@@ -1,5 +1,5 @@
 class Charity < ActiveRecord::Base
-  validates :name, presence: true
+  validates :name, presence: true, uniqueness: true
   validates :description, presence: true
 
   has_many :causes_charities
@@ -9,11 +9,20 @@ class Charity < ActiveRecord::Base
 
   has_many :user_roles
   has_many :users, through: :user_roles
+  belongs_to :status
 
   before_create :create_slug
 
   def create_slug
     self.slug = self.name.parameterize
+  end
+
+  def active?
+    status_id == 1
+  end
+
+  def self.all_active_charities
+    all.where(status_id: 1)
   end
 
   def associated_recipient?(recipient_id)

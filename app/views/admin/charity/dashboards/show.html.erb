@@ -1,3 +1,10 @@
-<h1>Admin Dashboard</h1>
+<h1><%= @charity.name %> Dashboard</h1>
+<h4>Charity Status: <%= @charity.status.name %> </h4>
+
+<div class="col-sm-6 col-sm-offset-1 photo">
+  <%#= image_tag @charity.charity_photo.url(:large), :class => "img-responsive center-block" %>
+</div>
+<h4> <%= @charity.description %> </h4>
+
 
 <%= link_to "Manage Needs", admin_charity_needs_path(@charity.slug), class: "btn btn-primary" %>
