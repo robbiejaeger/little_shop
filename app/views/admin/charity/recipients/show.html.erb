@@ -9,6 +9,37 @@
   <p><em>Charity Description:</em> <%= @charity.description %></p>
 </div>
 </div>
+
+<%= link_to "Add Need for this Recipient", new_admin_charity_recipient_need_item_path(@charity.slug, @recipient) %>
+<div class="container">
+<div class="need_item-info">
+  <table>
+    <tr>
+      <th>
+        Recipient Needs
+      </th>
+      <th>
+        Quantity
+      </th>
+      <th>
+        Deadline
+      </th>
+    </tr>
+      <%# @user.user_roles.each do |user_role| %>
+      <tr>
+      <td> <%#= user_role.role.name %> </td>
+
+      <td> <%# if user_role.charity %>
+        <%#= user_role.charity.name %>
+        <%# end %>
+      </td>
+      <td>
+      </td>
+    </tr>
+      <%# end %>
+  </table>
+</div>
+</div>
 <!--
 <% if !@items.empty? %>
   <div class="col-sm-12 current-needs">
