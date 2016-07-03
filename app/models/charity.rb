@@ -36,4 +36,10 @@ class Charity < ActiveRecord::Base
       user.charities.map {|charity| [ charity.name, charity.id ] }
     end
   end
+
+  def create_charity_owner(user)
+    role = Role.find_by(name: "business_owner")
+    user_roles.create(user: user, role: role)
+  end
+
 end

@@ -1,0 +1,20 @@
+<h2>Submit Your Charity</h2>
+
+<%= form_for @charity, multipart: true do |f| %>
+  <div class="form-group">
+    <%= f.label :name %>
+    <%= f.text_field :name, class: "form-control" %>
+  </div>
+
+  <div class="form-group">
+    <%= f.label :description %>
+    <%= f.text_field :description, class: "form-control" %>
+  </div>
+
+  <div class="form-group">
+    <%= f.label :charity_photo %>
+    <%= f.file_field :charity_photo %>
+  </div>
+
+  <%= f.submit "Submit Charity", class: "btn btn-primary" %>
+<% end %>
