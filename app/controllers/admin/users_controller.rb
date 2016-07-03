@@ -7,7 +7,7 @@ class Admin::UsersController < ApplicationController
 
   def show
     @user = User.find(params[:id])
+    @user_roles = @user.roles_to_display(current_user)
   end
-
 
 end
