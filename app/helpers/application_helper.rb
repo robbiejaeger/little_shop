@@ -42,7 +42,6 @@ module ApplicationHelper
   end
 
   def activate_charity_link(charity)
-
     link_to "Activate",
         admin_charity_charity_path(charity.slug, charity,
         :charity => { :status_id => 1}),
@@ -59,7 +58,6 @@ module ApplicationHelper
         :confirm => "Are you sure?",
         class: "btn btn-danger"
   end
-
 
   def deactivate_need_link(need)
     link_to "Deactivate",
