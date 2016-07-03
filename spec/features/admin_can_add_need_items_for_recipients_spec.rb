@@ -25,11 +25,11 @@ RSpec.feature "admin can add need items for recipients" do
     within ".#{recipient.name}" do
       click_on "View Details"
     end
-
+save_and_open_page
     expect(current_path).to eq(admin_charity_recipient_path(charity.slug, recipient))
 
     expect(page).to have_content(recipient.name)
-# save_and_open_page
+
 
     expect(page).to have_content("Recipient Needs")
     expect(page).to have_content("Quantity")
@@ -38,10 +38,27 @@ RSpec.feature "admin can add need items for recipients" do
     click_on "Add Need for this Recipient"
 
     expect(current_path).to eq(new_admin_charity_recipient_need_item_path(charity.slug, recipient))
-    select "#{need.name}", from: "charity[need_id]"
-    fill_in "Quantity", with: 5
-    select '2016/07/20', :from => 'Date Needed By'
 
+    select "#{need.name}", from: "need_item[need_id]"
+    select 5, from: "need_item[quantity]"
+    fill_in 'need_item[deadline]', with: '2016/07/20'
+
+    click_on "Add Need"
+
+    expect(current_path).to eq(admin_charity_recipient_path(charity.slug, recipient))
+
+    within(".#{need.name}") do
+      expect(page).to have_content(need.name)
+    end
+
+    need_item_quantity = recipient.need_items.find_by(need_id: need.id).quantity
+
+    within(".quantity-#{need_item_quantity}") do
+      expect(page).to have_content(need_item_quantity)
+    end
+
+    need_item_deadline = recipient.need_items.find_by(need_id: need.id).deadline
+
+    expect(page).to have_content(format_date(need_item_deadline))
   end
-
 end

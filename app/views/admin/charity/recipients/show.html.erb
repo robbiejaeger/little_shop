@@ -25,18 +25,21 @@
         Deadline
       </th>
     </tr>
-      <%# @user.user_roles.each do |user_role| %>
-      <tr>
-      <td> <%#= user_role.role.name %> </td>
-
-      <td> <%# if user_role.charity %>
-        <%#= user_role.charity.name %>
-        <%# end %>
+    <% if @recipient.need_items %>
+      <% @recipient.need_items.each do |need_item| %>
+      <tr class="<%= need_item.name %>-row">
+      <td class="<%= need_item.name %>">
+        <%= need_item.name %>
       </td>
-      <td>
+      <td class="quantity-<%= need_item.quantity %>">
+        <%= need_item.quantity %>
+      </td>
+      <td class="deadline-<%= need_item.deadline %>">
+        <%= format_date(need_item.deadline) %>
       </td>
     </tr>
-      <%# end %>
+      <% end %>
+      <% end  %>
   </table>
 </div>
 </div>
