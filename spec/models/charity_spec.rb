@@ -24,4 +24,3 @@ RSpec.describe Charity, type: :model do
    end
 
 end
-Status API Training Shop Blog About
