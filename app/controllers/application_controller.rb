@@ -29,7 +29,8 @@ class ApplicationController < ActionController::Base
   end
 
   def current_permission
-    charity = Charity.find_by(slug: params[:charity_slug]) || nil
+    byebug
+    charity = Charity.find_by(slug: params[:charity_slug]) || Charity.find_by(id: params[:id]) || nil
     charity_id = charity.id if charity
     @current_permission ||= PermissionsService.new(current_user, params[:controller], params[:action], charity_id)
   end
