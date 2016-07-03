@@ -103,7 +103,7 @@ RSpec.feature "admin can add recipient for charity" do
     expect(page).to have_content("Description for Recipient")
   end
 
-  scenario "registered user cannot create need" do
+  scenario "registered user cannot create recipient" do
 
     role = Role.create(name: 'registered_user')
     user = create(:user)
@@ -112,11 +112,10 @@ RSpec.feature "admin can add recipient for charity" do
 
     allow_any_instance_of(ApplicationController).to receive(:current_user).and_return( user )
 
-    visit new_admin_charity_need_path(charity.slug)
+    visit new_admin_charity_recipient_path(charity.slug)
 
     expect(page).to have_content("not authorized")
     expect(current_path).to eq(root_path)
-
   end
 
 end
