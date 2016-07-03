@@ -10,7 +10,7 @@ RSpec.describe Charity, type: :model do
    scenario "creating a slug method" do
      charity = create(:charity)
 
-     expect(charity.slug).to eq("charity-5")
+     expect(charity.slug).to eq("#{charity.name}".parameterize)
    end
 
    scenario "see if recipient belongs a charity" do

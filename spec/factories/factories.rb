@@ -90,6 +90,19 @@ FactoryGirl.define do
     deadline 5.days.from_now
   end
 
+  factory :need_item do
+    quantity 1
+    need
+    recipient
+    deadline Date.today
+  end
+
+  factory :donation_item do
+    quantity 1
+    donation
+    need_item
+  end
+
   factory :future_need_item_multiple, class: NeedItem do
     quantity 10
     need
