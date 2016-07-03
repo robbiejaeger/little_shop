@@ -133,6 +133,7 @@ class PermissionsService
     end
     return true if controller == "admin/user_roles" && action == "new"
     return true if controller == "admin/user_roles" && action == "create"
+    return true if controller == "admin/user_roles" && action == "destroy"
     return true if controller == "admin/users" && action == "index"
     return true if controller == "admin/users" && action == "show"
     return true if controller == "sessions" && action == "new"
@@ -178,6 +179,7 @@ class PermissionsService
     return true if controller == "admin/charity/dashboards" && action == "show"
     return true if controller == "admin/user_roles" && action == "new"
     return true if controller == "admin/user_roles" && action == "create"
+    return true if controller == "admin/user_roles" && action == "destroy"
     return true if controller == "admin/users" && action == "index"
     return true if controller == "admin/users" && action == "show"
     return true if controller == "sessions" && action == "new"

@@ -18,6 +18,14 @@ class Admin::UserRolesController < ApplicationController
     @user_role = UserRole.new
   end
 
+  def destroy
+    @user_role = UserRole.find(params[:id])
+    user = @user_role.user
+    @user_role.destroy
+    redirect_to admin_users_path
+  end
+
+
 
   private
 
