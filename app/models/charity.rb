@@ -69,7 +69,7 @@ class Charity < ActiveRecord::Base
   end
 
   def create_charity_owner(user)
-    role = Role.find_by(name: "business_owner")
+    role = Role.find_by(name: "Business Owner")
     user_roles.create(user: user, role: role)
   end
 

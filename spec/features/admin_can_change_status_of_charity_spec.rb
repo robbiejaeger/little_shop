@@ -3,12 +3,9 @@ require 'rails_helper'
 RSpec.feature "admin can change status for charity" do
   scenario "platform admin can change status to activated and suspended" do
 
-    role = Role.create(name: 'platform_admin')
+    role = Role.find_by(name: 'Platform Admin')
     user = create(:user)
     user_role = UserRole.create(role_id: role.id, user_id: user.id)
-    Status.create(name: 'Active')
-    Status.create(name: 'Inactive')
-    Status.create(name: 'Suspended')
     charity = create(:inactive_charity)
 
     allow_any_instance_of(ApplicationController).to receive(:current_user).and_return( user )
@@ -61,10 +58,7 @@ RSpec.feature "admin can change status for charity" do
 
   scenario "business admin can deactivate and activate, but not suspend charity" do
 
-    Status.create(name: 'Active')
-    Status.create(name: 'Inactive')
-    Status.create(name: 'Suspended')
-    role = Role.create(name: 'business_admin')
+    role = Role.find_by(name: 'Business Admin')
     user = create(:user)
     charity = create(:inactive_charity)
     user_role = UserRole.create(role_id: role.id, user_id: user.id, charity_id: charity.id)
@@ -93,11 +87,7 @@ RSpec.feature "admin can change status for charity" do
   end
 
   scenario "business owner can deactivate and activate, but not suspend charity" do
-
-    Status.create(name: 'Active')
-    Status.create(name: 'Inactive')
-    Status.create(name: 'Suspended')
-    role = Role.create(name: 'business_owner')
+    role = Role.find_by(name: 'Business Owner')
     user = create(:user)
     charity = create(:inactive_charity)
     user_role = UserRole.create(role_id: role.id, user_id: user.id, charity_id: charity.id)

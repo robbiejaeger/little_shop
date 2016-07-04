@@ -3,7 +3,7 @@ require 'rails_helper'
 RSpec.feature "admin can login" do
   scenario "platform admin logs in and sees the admin dashboard" do
     user = create(:user)
-    role = Role.create(name: 'platform_admin')
+    role = Role.find_by(name: 'Platform Admin')
     user_role = role.user_roles.create(user_id: user.id)
 
 
@@ -19,7 +19,7 @@ RSpec.feature "admin can login" do
 
   scenario "business admin ogs in and sees the admin dashboard" do
     user = create(:user)
-    role = Role.create(name: 'business_admin')
+    role = Role.find_by(name: 'Business Admin')
     user_role = role.user_roles.create(user_id: user.id)
 
 

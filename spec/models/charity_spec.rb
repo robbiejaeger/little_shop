@@ -123,7 +123,7 @@ RSpec.describe Charity, type: :model do
    it "creates correct form options for platform_admin" do
      create_list(:status, 3)
      create_list(:charity, 10)
-     role = Role.create(name: 'platform_admin')
+     role = Role.find_by(name: 'Platform Admin')
      user = create(:user)
      user_role = UserRole.create(role_id: role.id, user_id: user.id)
      expect(Charity.form_options(user).count).to eq(10)
@@ -134,7 +134,7 @@ RSpec.describe Charity, type: :model do
    it "creates correct form options for business_admin" do
      create_list(:status, 3)
      user_charity1, user_charity2, other_charity = create_list(:charity, 3)
-     role = Role.create(name: 'business_admin')
+     role = Role.find_by(name: 'Business Admin')
      user = create(:user)
      user_role1 = UserRole.create(role_id: role.id, user_id: user.id, charity_id: user_charity1.id)
      user_role2 = UserRole.create(role_id: role.id, user_id: user.id, charity_id: user_charity2.id)
@@ -145,14 +145,14 @@ RSpec.describe Charity, type: :model do
    end
 
    it "creates a charity owner" do
-     create_list(:status, 3)
-     charity = create(:charity)
-     reg = Role.create(name: 'registered_user')
-     own = Role.create(name: 'business_owner')
-     user = create(:user)
-     charity.create_charity_owner(user)
-     expect(user.roles.first.name).to eq('business_owner')
 
+     charity = create(:charity)
+     reg = Role.find_by(name: 'Registered User')
+     own = Role.find_by(name: 'Business Owner')
+     user = create(:user)
+
+     charity.create_charity_owner(user)
+     expect(user.roles.first.name).to eq("Business Owner")
    end
 
 

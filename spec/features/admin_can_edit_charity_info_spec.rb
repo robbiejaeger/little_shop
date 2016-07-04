@@ -3,7 +3,7 @@ require 'rails_helper'
 RSpec.feature "admin can edit details of charity" do
   scenario "platform admin can edit charity information" do
 
-    role = Role.create(name: 'platform_admin')
+    role = Role.find_by(name: 'Platform Admin')
     user = create(:user)
     user_role = UserRole.create(role_id: role.id, user_id: user.id)
     Status.create(name: 'Active')
@@ -36,7 +36,7 @@ RSpec.feature "admin can edit details of charity" do
 
   scenario "business owner can edit charity information" do
 
-    role = Role.create(name: 'business_owner')
+    role = Role.find_by(name: 'Business Owner')
     user = create(:user)
     Status.create(name: 'Active')
     Status.create(name: 'Inactive')
@@ -65,7 +65,7 @@ RSpec.feature "admin can edit details of charity" do
 
   scenario "business admin can edit charity information" do
 
-    role = Role.create(name: 'business_admin')
+    role = Role.find_by(name: 'Business Admin')
     user = create(:user)
     Status.create(name: 'Active')
     Status.create(name: 'Inactive')
