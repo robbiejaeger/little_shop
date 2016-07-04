@@ -9,7 +9,6 @@
     </tr> -->
 <div class="row"></div>
   <% @recipients.each do |recipient| %>
-  <div class=
     <tr class="<%= recipient.name %>">
       <td><%= recipient.name %> </td>
       <td> <%= link_to "View Details", admin_charity_recipient_path(@charity.slug, recipient) %> </td>

@@ -2,10 +2,10 @@ require 'rails_helper'
 
 RSpec.feature "admin can add user role" do
   scenario "platform admin adds user role" do
-    platform_role = Role.create(name: 'platform_admin')
-    bus_admin_role = Role.create(name: "business_admin")
-    bus_owner_role = Role.create(name: "business_owner")
-    reg_user_role= Role.create(name: "registered_user")
+
+    bus_owner_role = Role.find_by(name: "business_owner")
+    platform_role = Role.find_by(name: "platform_admin")
+    reg_user_role = Role.find_by(name: "registered_user")
     admin, user = create_list(:user, 2)
     Status.create(name: 'Active')
     Status.create(name: 'Inactive')
@@ -28,7 +28,7 @@ RSpec.feature "admin can add user role" do
     expect(current_path).to eq(new_admin_user_user_role_path(User.find_by(username: "#{user.username}")))
 
     select "#{charity2.name}", from: "user_role[charity_id]"
-    select "#{bus_owner_role .name}", from: "user_role[role_id]"
+    select "#{bus_owner_role.name}", from: "user_role[role_id]"
 
     click_on "Add User Role"
 
