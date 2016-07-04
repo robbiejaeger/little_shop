@@ -47,34 +47,4 @@ RSpec.feature "user can create an inactive charity for approval and is assigned 
 
   end
 
-  xscenario "business owner cannot create recipient for other charity" do
-    role = Role.create(name: 'business_owner')
-    user = create(:user)
-    charity_one, charity_two = create_list(:charity, 2)
-
-    user_role = UserRole.create(role_id: role.id, user_id: user.id, charity_id: charity_one.id)
-
-    allow_any_instance_of(ApplicationController).to receive(:current_user).and_return( user )
-
-    visit new_admin_charity_recipient_path(charity_two.slug)
-
-    expect(current_path).to eq(root_path)
-    expect(page).to have_content("not authorized")
-  end
-
-  xscenario "business admin cannot create recipient for other charity" do
-    role = Role.create(name: 'business_admin')
-    user = create(:user)
-    charity_one, charity_two = create_list(:charity, 2)
-
-    user_role = UserRole.create(role_id: role.id, user_id: user.id, charity_id: charity_one.id)
-
-    allow_any_instance_of(ApplicationController).to receive(:current_user).and_return( user )
-
-    visit new_admin_charity_recipient_path(charity_two.slug)
-
-    expect(current_path).to eq(root_path)
-    expect(page).to have_content("not authorized")
-  end
-
 end

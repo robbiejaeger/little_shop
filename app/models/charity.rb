@@ -47,7 +47,6 @@ class Charity < ActiveRecord::Base
     all.where("status_id = ? AND created_at > ?", 2, 2.weeks.ago)
   end
 
-
   def associated_recipient?(recipient_id)
     recipient_ids = recipients.pluck(:id)
     if recipient_ids.include?(recipient_id)

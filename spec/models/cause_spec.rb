@@ -12,6 +12,7 @@ RSpec.describe Cause, type: :model do
   end
 
   scenario "finding active recipients" do
+    create_list(:status, 3)
     recipient_one = create(:recipient)
     recipient_two = create(:recipient)
     old_item = create(:past_need_item)
