@@ -1,10 +1,23 @@
-<h2>Dashboard for <%= current_user.username %> </h2>
-
-<h4><%= link_to "Manage Users for All Charities", admin_users_path %></h4>
-
-<h4>Select a Charity</h4>
-<ul>
-  <% @charities.each do |charity| %>
-  <li><%= link_to charity.name, admin_charity_dashboard_path(charity.slug) %></li>
-  <% end %>
-</ul>
+<div class="container">
+  <h2>Dashboard for <%= current_user.username %> </h2>
+  <div class="row">
+    <div class="col-sm-4">
+      <h4><%= link_to "Manage Users for All Charities", admin_users_path, class: "btn btn-danger" %></h4>
+    </div>
+    <div class="col-sm-3"> 
+      <div class="btn-group">
+        <button type="button" class="btn btn-success dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="true">
+          Select a Charity
+        </button>
+        <div class="dropdown-menu">
+          <% @charities.each do |charity| %>
+          <a class="dropdown-item" href="/admin/<%= charity.slug %>/dashboard"><%= charity.name %></a>
+          <% end %>
+        </div>
+      </div>
+    </div>
+    <div class="col-sm-4">
+      <h4><%= link_to "Analytics", admin_dashboard_path, class: "btn btn-primary" %></h4>
+    </div>
+  </div>
+</div>
