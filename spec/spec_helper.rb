@@ -25,6 +25,13 @@ RSpec.configure do |config|
   config.before(:each) do
     DatabaseCleaner.strategy = :transaction
     DatabaseCleaner.clean_with(:truncation)
+    Status.create(name: "Active")
+    Status.create(name: "Inactive")
+    Status.create(name: "Suspended")
+    Role.create(name: "registered_user")
+    Role.create(name: 'platform_admin')
+    Role.create(name: "business_owner")
+    Role.create(name: "business_admin")
   end
 
   config.around(:each) do |example|

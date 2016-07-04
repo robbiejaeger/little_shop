@@ -3,11 +3,6 @@ require 'rails_helper'
 RSpec.feature "user can create an inactive charity for approval and is assigned business owner role" do
   scenario "business admin can add recipient" do
     user = create(:user)
-    Role.create(name: "registered_user")
-    Role.create(name: 'platform_admin')
-    Role.create(name: "business_owner")
-    Role.create(name: "business_admin")
-    create_list(:status, 2)
     allow_any_instance_of(ApplicationController).to receive(:current_user).and_return(user)
     visit root_path
     click_on "Add Your Charity"
@@ -30,8 +25,6 @@ RSpec.feature "user can create an inactive charity for approval and is assigned 
 
   scenario "inactive charity is not available to user" do
 
-    Status.create(name: "Active")
-    Status.create(name: "Inactive")
     user = create(:user)
     allow_any_instance_of(ApplicationController).to receive(:current_user).and_return(user)
     visit new_charity_path
