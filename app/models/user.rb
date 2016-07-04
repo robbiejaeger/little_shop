@@ -39,15 +39,15 @@ class User < ActiveRecord::Base
   end
 
   def platform_admin?
-    roles.exists?(name: "platform_admin")
+    roles.exists?(name: "Platform Admin")
   end
 
   def business_owner?
-    roles.exists?(name: "business_owner")
+    roles.exists?(name: "Business Owner")
   end
 
   def business_admin?
-    roles.exists?(name: "business_admin")
+    roles.exists?(name: "Business Admin")
   end
 
   def role_by_charity(charity)

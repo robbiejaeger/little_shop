@@ -28,10 +28,10 @@ RSpec.configure do |config|
     Status.create(name: "Active")
     Status.create(name: "Inactive")
     Status.create(name: "Suspended")
-    Role.create(name: "registered_user")
-    Role.create(name: 'platform_admin')
-    Role.create(name: "business_owner")
-    Role.create(name: "business_admin")
+    Role.create(name: "Registered User")
+    Role.create(name: 'Platform Admin')
+    Role.create(name: "Business Owner")
+    Role.create(name: "Business Admin")
   end
 
   config.around(:each) do |example|
