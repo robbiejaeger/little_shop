@@ -37,7 +37,8 @@ module ApplicationHelper
         admin_charity_need_path(need.charity.slug, need,
         :need => { :status_id => 2}),
         :method => :put,
-        :confirm => "Are you sure?"
+        :confirm => "Are you sure?",
+        class: "btn btn-warning"
   end
 
   def activate_need_link(need)
@@ -45,7 +46,8 @@ module ApplicationHelper
         admin_charity_need_path(need.charity.slug, need,
         :need => { :status_id => 1}),
         :method => :put,
-        :confirm => "Are you sure?"
+        :confirm => "Are you sure?",
+    class: "btn btn-warning"
   end
 
   def suspend_need_link(need)

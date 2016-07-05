@@ -1,10 +1,10 @@
 <div class="container">
   <h2>Dashboard for <%= current_user.username %> </h2>
   <div class="row">
-    <div class="col-sm-4">
+    <div class="col-sm-3">
       <h4><%= link_to "Manage Users for All Charities", admin_users_path, class: "btn btn-danger" %></h4>
     </div>
-    <div class="col-sm-3"> 
+    <div class="col-sm-3">
       <div class="btn-group">
         <button type="button" class="btn btn-success dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="true">
           Select a Charity
@@ -16,7 +16,7 @@
         </div>
       </div>
     </div>
-    <div class="col-sm-4">
+    <div class="col-sm-3">
       <h4><%= link_to "Analytics", admin_dashboard_path, class: "btn btn-primary" %></h4>
     </div>
   </div>

@@ -1,61 +1,62 @@
-<%= link_to "Add Need", new_admin_charity_need_path(@charity.slug) %>
-<h1>Needs</h1>
+<div class="container">
+  <div class="text-center">
+    <h1>Needs</h1>
+  </div>
+  <div class="text-center">
+    <%= link_to "Add Need", new_admin_charity_need_path(@charity.slug), class: "btn btn-info" %>
+  </div>
 
 <% if @needs.active %>
   <h4>Active Needs</h4>
-  <table>
+  <table class = "table table-sm">
     <tr>
       <th>Name</th>
       <th></th>
       <th></th>
       <th></th>
     </tr>
-
   <% @needs.active.each do |need| %>
     <tr class="<%=need.name%>">
       <td><%= need.name %> </td>
-      <td> <%= link_to "View Details", admin_charity_need_path(@charity.slug, need) %> </td>
-      <td> <%= link_to "Update", edit_admin_charity_need_path(@charity.slug, need) %> </td>
+      <td> <%= link_to "View Details", admin_charity_need_path(@charity.slug, need), class: "btn btn-primary" %> </td>
+      <td> <%= link_to "Update", edit_admin_charity_need_path(@charity.slug, need), class: "btn btn-success" %> </td>
       <td><%= deactivate_need_link(need) %><% if current_user.platform_admin? %>
         <%= suspend_need_link(need) %>
       <% end %>
       </td>
     </tr>
   <% end %>
-
   </table>
 <% end %>
 
 
-<h4>Inactive Needs</h4>
 <% if @needs.inactive %>
-  <table>
-    <tr>
-      <th>Name</th>
-      <th></th>
-      <th></th>
-      <th></th>
-    </tr>
-
-  <% @needs.inactive.each do |need| %>
-    <tr class="<%=need.name%>">
-      <td><%= need.name %> </td>
-      <td> <%= link_to "View Details", admin_charity_need_path(@charity.slug, need) %> </td>
-      <td> <%= link_to "Update", edit_admin_charity_need_path(@charity.slug, need) %> </td>
-      <td><%= activate_need_link(need) %><% if current_user.platform_admin? %>
-        <%= suspend_need_link(need) %>
-      <% end %>
-      </td>
-    </tr>
-  <% end %>
-
-  </table>
+<h4>Inactive Needs</h4>
+<table class="table table-sm">
+  <tr>
+    <th>Name</th>
+    <th></th>
+    <th></th>
+    <th></th>
+  </tr>
+<% @needs.inactive.each do |need| %>
+  <tr class="<%=need.name%>">
+    <td><%= need.name %> </td>
+    <td> <%= link_to "View Details", admin_charity_need_path(@charity.slug, need), class: "btn btn-primary" %> </td>
+    <td> <%= link_to "Update", edit_admin_charity_need_path(@charity.slug, need), class: "btn btn-success" %> </td>
+    <td><%= activate_need_link(need) %><% if current_user.platform_admin? %>
+      <%= suspend_need_link(need) %>
+    <% end %>
+    </td>
+  </tr>
+<% end %>
+</table>
 <% end %>
 
 
 <h4>Suspended Needs</h4>
 <% if @needs.suspended %>
-  <table>
+  <table class= "table table-sm">
     <tr>
       <th>Name</th>
       <th></th>
@@ -66,8 +67,8 @@
   <% @needs.suspended.each do |need| %>
     <tr class="<%=need.name%>">
       <td><%= need.name %> </td>
-      <td> <%= link_to "View Details", admin_charity_need_path(@charity.slug, need) %> </td>
-      <td> <%= link_to "Update", edit_admin_charity_need_path(@charity.slug, need) %> </td>
+      <td> <%= link_to "View Details", admin_charity_need_path(@charity.slug, need), class: "btn btn-primary" %> </td>
+      <td> <%= link_to "Update", edit_admin_charity_need_path(@charity.slug, need), class: "btn btn-success" %> </td>
       <td><% if current_user.platform_admin? %>
         <%= activate_need_link(need) %>
       <% end %>
@@ -77,3 +78,5 @@
 
   </table>
 <% end %>
+
+</div>
