@@ -2,7 +2,7 @@ require 'rails_helper'
 
 RSpec.feature "admin can add need items for recipients" do
   scenario "need items added to recipient" do
-    role = Role.create(name: "business_admin")
+    role = Role.find_by(name: "Business Admin")
     user = create(:user)
     charity = create(:charity)
     status = create(:status)

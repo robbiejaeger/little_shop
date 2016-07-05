@@ -19,5 +19,33 @@
     <div class="col-sm-3">
       <h4><%= link_to "Analytics", admin_dashboard_path, class: "btn btn-primary" %></h4>
     </div>
+
+    <h2>Charities</h2>
+
+    <% if current_user.platform_admin? %>
+
+    <div class="to-approve">
+      <h4>Pending Approval</h4>
+      <%= render partial: "charity_list", locals: {:charities =>  @pending_charities} %>
+    </div>
+
+    <div class="active-charities">
+      <h4>Active</h4>
+      <%= render partial: "charity_list", locals: {:charities =>  @active_charities} %>
+
+    </div>
+
+    <div class="inactive-charities">
+      <h4>Inactive</h4>
+      <%= render partial: "charity_list", locals: {:charities =>  @inactive_charities} %>
+
+    </div>
+
+    <div class="suspended-charities">
+      <h4>Suspended</h4>
+      <%= render partial: "charity_list", locals: {:charities =>  @suspended_charities} %>
+    </div>
+    <% end %>
+
   </div>
 </div>
