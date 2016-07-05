@@ -4,12 +4,17 @@ RSpec.feature "user can create an inactive charity for approval and is assigned 
   scenario "business admin can add recipient" do
     user = create(:user)
     allow_any_instance_of(ApplicationController).to receive(:current_user).and_return(user)
+    cause1, cause2 = create_list(:cause, 2)
     visit root_path
     click_on "Add Your Charity"
 
     expect(current_path).to eq(new_charity_path)
     fill_in "Name", with: "New Charity"
+    fill_in "Tagline", with: "New Charity Tagline"
     fill_in "Description", with: "New Charity Description"
+
+    expect(page).to have_select("charity[cause_id]", options: [cause1.name, cause2.name])
+    select cause1.name, from: "charity[cause_id]"
     click_on "Submit Charity"
 
     expect(current_path).to eq(dashboard_path)
@@ -19,6 +24,9 @@ RSpec.feature "user can create an inactive charity for approval and is assigned 
 
     expect(current_path).to eq(admin_charity_dashboard_path(charity.slug))
 
+    expect(page).to have_content("New Charity")
+    expect(page).to have_content("New Charity Tagline")
+    expect(page).to have_content(cause1.name)
     expect(page).to have_content("Inactive")
 
   end

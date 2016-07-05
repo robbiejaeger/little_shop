@@ -2,6 +2,7 @@
 <h1><%= @charity.name %> Dashboard</h1>
 <h4> <%= @charity.description %> </h4>
 <h4>Charity Status: <%= @charity.status.name %> </h4>
+<h4>Causes: <%= @charity.causes.last.name %> </h4>
 
 <%= link_to "Manage Needs", admin_charity_needs_path(@charity.slug), class: "btn btn-primary" %>
 
