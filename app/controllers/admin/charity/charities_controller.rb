@@ -8,7 +8,7 @@ class Admin::Charity::CharitiesController <ApplicationController
   def update
     @charity = Charity.find(params[:id])
     @charity.update(charity_params)
-    # @charity.causes_charities.last.update_attributes(causes_charities_params)
+    #@charity.causes_charities.last.update_attributes(causes_charities_params)
     if current_user.platform_admin?
       redirect_to admin_dashboard_path
     else
