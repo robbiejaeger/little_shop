@@ -4,9 +4,11 @@
       <div class="panel-heading">
         <h1>Create Need for <%= @recipient.name %></h1>
       </div>
-      <%= render partial: "/shared/need_item_form" %>
-      <%= f.submit "Add Need" %>
+      <div class="panel-body">
+        <%= form_for [:admin, @charity, @recipient, @need_item], :url => admin_charity_recipient_need_items_path(@recipient.charity.slug, @recipient, @need_item) do |f| %>
+        <%= render partial: "/shared/need_item_form", locals: {f: f} %>
+        <%= f.submit "Add Need" %>
       <% end  %>
     </div>
   </div>
-</div> 
+</div>

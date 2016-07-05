@@ -17,13 +17,15 @@
         <tr class="charity-<%=user.username%>">
           <td><%= user.username%></td>
           <td><%= user.role_by_charity(charity).name if user.role_by_charity(charity)%></td>
-          <%if current_user.delete_permission? && user.role_by_charity(charity)%><td>  <%= link_to "Delete Role", admin_user_user_role_path(user, user.role_by_charity(charity)), method: :delete, class:"btn btn-danger btn-sm" %><%end%></td>
+          <%if current_user.delete_permission? && user.role_by_charity(charity)%><td>  <%= link_to "Delete Role", admin_user_user_role_path(user, user.role_by_charity(charity)), method: :delete, class:"btn btn-danger btn-sm delete-role" %><%end%></td>
         </tr>
       <% end %>
 
     </table>
   </div>
   <% end %>
+
+<div class="col-md-6 col-md-offset-3 ">
 
   <div class="text-center">
     <h2>All Users</h2>
@@ -34,10 +36,11 @@
     <% @users.each do |user| %>
     <tr class="<%=user.username%>">
       <td><%= user.username %></td>
-      <td><%= link_to "View", admin_user_path(user), class: "btn btn-primary btn-sm" %></td>
-      <td><%= link_to "Add Role", new_admin_user_user_role_path(user), class: "btn btn-info btn-sm" %></td>
+      <td><%= link_to "View", admin_user_path(user), class: "btn btn-primary btn-sm view-user" %></td>
+      <td><%= link_to "Add Role", new_admin_user_user_role_path(user), class: "btn btn-info btn-sm add-role" %></td>
     </tr>
     <% end %>
 
   </table>
+</div>
 </div>

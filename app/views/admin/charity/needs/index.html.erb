@@ -5,8 +5,9 @@
     <h1>Needs</h1>
   </div>
   <div class="text-center">
-    <%= link_to "Add Need", new_admin_charity_need_path(@charity.slug), class: "btn btn-info" %>
+    <%= link_to "Add Need", new_admin_charity_need_path(@charity.slug), class: "btn btn-info add-need" %>
   </div>
+<div class="col-md-8 col-md-offset-2">
 
 <% if @needs.active %>
   <h4>Active Needs</h4>
@@ -20,8 +21,8 @@
   <% @needs.active.each do |need| %>
     <tr class="<%=need.name%>">
       <td><%= need.name %> </td>
-      <td> <%= link_to "View Details", admin_charity_need_path(@charity.slug, need), class: "btn btn-primary" %> </td>
-      <td> <%= link_to "Update", edit_admin_charity_need_path(@charity.slug, need), class: "btn btn-success" %> </td>
+      <td> <%= link_to "View Details", admin_charity_need_path(@charity.slug, need), class: "btn btn-primary btn-sm view-details" %> </td>
+      <td> <%= link_to "Update", edit_admin_charity_need_path(@charity.slug, need), class: "btn btn-success btn-sm update-need" %> </td>
       <td><%= deactivate_need_link(need) %><% if current_user.platform_admin? %>
         <%= suspend_need_link(need) %>
       <% end %>
@@ -30,6 +31,7 @@
   <% end %>
   </table>
 <% end %>
+</div>
 
 
 <% if @needs.inactive %>
@@ -44,8 +46,8 @@
 <% @needs.inactive.each do |need| %>
   <tr class="<%=need.name%>">
     <td><%= need.name %> </td>
-    <td> <%= link_to "View Details", admin_charity_need_path(@charity.slug, need), class: "btn btn-primary" %> </td>
-    <td> <%= link_to "Update", edit_admin_charity_need_path(@charity.slug, need), class: "btn btn-success" %> </td>
+    <td> <%= link_to "View Details", admin_charity_need_path(@charity.slug, need), class: "btn btn-primary btn-sm view-details" %> </td>
+    <td> <%= link_to "Update", edit_admin_charity_need_path(@charity.slug, need), class: "btn btn-success btn-sm update-need" %> </td>
     <td><%= activate_need_link(need) %><% if current_user.platform_admin? %>
       <%= suspend_need_link(need) %>
     <% end %>
@@ -69,8 +71,8 @@
   <% @needs.suspended.each do |need| %>
     <tr class="<%=need.name%>">
       <td><%= need.name %> </td>
-      <td> <%= link_to "View Details", admin_charity_need_path(@charity.slug, need), class: "btn btn-primary" %> </td>
-      <td> <%= link_to "Update", edit_admin_charity_need_path(@charity.slug, need), class: "btn btn-success" %> </td>
+      <td> <%= link_to "View Details", admin_charity_need_path(@charity.slug, need), class: "btn btn-primary view-details" %> </td>
+      <td> <%= link_to "Update", edit_admin_charity_need_path(@charity.slug, need), class: "btn btn-success update-need" %> </td>
       <td><% if current_user.platform_admin? %>
         <%= activate_need_link(need) %>
       <% end %>

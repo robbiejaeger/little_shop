@@ -5,11 +5,11 @@
   <h4> <%= @charity.description %> </h4>
   <h4>Charity Status: <%= @charity.status.name %> </h4>
 
-  <%= link_to "Manage Needs", admin_charity_needs_path(@charity.slug), class: "btn btn-primary" %>
+  <%= link_to "Manage Needs", admin_charity_needs_path(@charity.slug), class: "btn btn-primary manage-needs" %>
 
-  <%= link_to "Manage Recipients", admin_charity_recipients_path(@charity.slug), class: "btn btn-success" %>
+  <%= link_to "Manage Recipients", admin_charity_recipients_path(@charity.slug), class: "btn btn-success manage-recipients" %>
 
-  <%= link_to "Update Charity", edit_admin_charity_charity_path(@charity.slug, @charity), class: "btn btn-info" %>
+  <%= link_to "Update Charity", edit_admin_charity_charity_path(@charity.slug, @charity), class: "btn btn-info update-charity" %>
 
 
   <%if current_user.platform_admin? && !@charity.suspended? %>

@@ -1,4 +1,5 @@
 <div class="container">
+  <%= link_to "All Recipients", admin_charity_recipients_path, class: "btn btn-primary all-recipients" %>
   <%= link_to "Back to Admin Dashboard", admin_dashboard_path, class: "btn btn-primary admin-dashboard" %>
   <%= link_to "Back to Charity Dashboard", admin_charity_dashboard_path(@charity.slug), class: "btn btn-default charity-dashboard" %></br></br>
   <div class="jumbotron">
@@ -6,7 +7,7 @@
     <h2 class="display-3">Recipient: <%= @recipient.name  %> </h2>
     <h4>Description: <%= @recipient.description %></h4></br></br></br>
     <p>
-      <%= link_to "Add Need for this Recipient", new_admin_charity_recipient_need_item_path(@charity.slug, @recipient), class: "btn btn-large btn-success" %>
+      <%= link_to "Add Need for this Recipient", new_admin_charity_recipient_need_item_path(@charity.slug, @recipient), class: "btn btn-large btn-success add-recipient" %>
     </p>
     </div>
   </div>
@@ -44,7 +45,7 @@
         <%= format_date(need_item.deadline) %>
       </td>
       <td>
-        <%= link_to "Edit Need", edit_admin_charity_recipient_need_item_path(@charity.slug, @recipient, need_item), class: "btn btn-primary" %>
+        <%= link_to "Edit Need", edit_admin_charity_recipient_need_item_path(@charity.slug, @recipient, need_item), class: "btn btn-primary recipient-update" %>
       </td>
     </tr>
       <% end %>

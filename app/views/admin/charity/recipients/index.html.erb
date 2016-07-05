@@ -6,7 +6,7 @@
 </div>
 
 <div class="text-center">
-  <%= link_to "Add Recipient", new_admin_charity_recipient_path(@charity.slug), class: "btn btn-success" %>
+  <%= link_to "Add Recipient", new_admin_charity_recipient_path(@charity.slug), class: "btn btn-success add-recipient" %>
 </div></br></br>
 
 <div class="row">
@@ -17,8 +17,8 @@
         <img src="#" alt= >
         <h3><%= recipient.name %></h3>
         <p><%= recipient.description %></p>
-        <p><%= link_to "Details", admin_charity_recipient_path(@charity.slug, recipient), class: "btn btn-primary" %>
-          <%= link_to "Update", edit_admin_charity_recipient_path(@charity.slug, recipient), class: "btn btn-danger"  %>
+        <p><%= link_to "Details", admin_charity_recipient_path(@charity.slug, recipient), class: "btn btn-primary recipient-details" %>
+          <%= link_to "Update", edit_admin_charity_recipient_path(@charity.slug, recipient), class: "btn btn-danger recipient-update"  %>
         </p>
       </div>
     </div>

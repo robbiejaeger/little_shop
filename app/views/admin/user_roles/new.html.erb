@@ -1,3 +1,4 @@
+<div class="container">
 <div class="panel-body">
 <%= form_for [:admin, @user, @user_role] do |f| %>
   <div class="form-group">
@@ -9,6 +10,7 @@
     <%= select(:user_role, :role_id, @role_options) %>
   </div>
   <%= f.submit "Add User Role", class: "btn btn-default" %>
-  <%= link_to "All Users", admin_users_path, class: "btn btn-success" %>
+  <%= link_to "All Users", admin_users_path, class: "btn btn-success all-users" %></br></br>
   <% end %>
+</div>
 </div>
