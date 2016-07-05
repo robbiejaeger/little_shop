@@ -2,27 +2,25 @@
   <h2>Dashboard for <%= current_user.username %> </h2>
   <div class="row">
     <div class="col-sm-3">
-      <h4><%= link_to "Manage Users for All Charities", admin_users_path, class: "btn btn-danger" %></h4>
+      <h4><%= link_to "Manage Users for All Charities", admin_users_path, class: "btn btn-danger manage-charities-button" %></h4>
     </div>
+    <% if !current_user.platform_admin? %>
     <div class="col-sm-3">
-      <div class="btn-group">
-        <button type="button" class="btn btn-success dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="true">
+      <div class="btn-group charity-dropdown">
+        <button type="button" class="btn btn-success dropdown-toggle manage-charities-button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="true">
           Select a Charity
         </button>
         <div class="dropdown-menu">
-          <% @charities.each do |charity| %>
+          <% @user_charities.each do |charity| %>
           <a class="dropdown-item" href="/admin/<%= charity.slug %>/dashboard"><%= charity.name %></a>
           <% end %>
         </div>
       </div>
+      <% end %>
     </div>
-    <div class="col-sm-3">
-      <h4><%= link_to "Analytics", admin_dashboard_path, class: "btn btn-primary" %></h4>
-    </div>
-
-    <h2>Charities</h2>
 
     <% if current_user.platform_admin? %>
+    <h2>Charities</h2>
 
     <div class="to-approve">
       <h4>Pending Approval</h4>

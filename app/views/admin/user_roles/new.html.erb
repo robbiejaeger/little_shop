@@ -9,5 +9,6 @@
     <%= select(:user_role, :role_id, @role_options) %>
   </div>
   <%= f.submit "Add User Role", class: "btn btn-default" %>
+  <%= link_to "All Users", admin_users_path, class: "btn btn-success" %>
   <% end %>
 </div>

@@ -74,7 +74,7 @@ module ApplicationHelper
         :need => { :status_id => 1}),
         :method => :put,
         :confirm => "Are you sure?",
-        class: "btn btn-success btn-sm"
+        class: "btn btn-primary btn-sm"
   end
 
   def suspend_need_link(need)
