@@ -65,11 +65,7 @@ module ApplicationHelper
         :need => { :status_id => 2}),
         :method => :put,
         :confirm => "Are you sure?",
-<<<<<<< HEAD
-        class: "btn btn-warning"
-=======
         class: "btn btn-warning btn-sm"
->>>>>>> 3d03ad3b1043d2ba5376dde51ee830b84b63c19d
   end
 
   def activate_need_link(need)
@@ -78,11 +74,7 @@ module ApplicationHelper
         :need => { :status_id => 1}),
         :method => :put,
         :confirm => "Are you sure?",
-<<<<<<< HEAD
-    class: "btn btn-warning"
-=======
         class: "btn btn-success btn-sm"
->>>>>>> 3d03ad3b1043d2ba5376dde51ee830b84b63c19d
   end
 
   def suspend_need_link(need)
