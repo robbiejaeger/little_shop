@@ -1,30 +1,26 @@
 <h2><%= current_user.username %>'s Donations</h2>
-<p>Total Donations: <%= @donations.count %> </p>
+<h4>Total Donations: <%= @donations.count %> </h4>
 
-<table class="table">
+<table class="table table-hover">
+  <div class="col-sm-12 col-md-4 col-lg-4">
   <tr>
     <th>Donation ID:</th>
-    <th>Status:</th>
     <th>Placed on:</th>
-    <th>Benefitting Families:</th>
     <th>Donation Items:</th>
+    <th>Donation Total:</th>
   </tr>
   <% @donations.each do |donation| %>
     <tr>
       <td> <%= link_to donation.id, donation_path(donation.id) %></td>
-      <td> <%= donation.status %> </td>
       <td> <%= donation.date %></td>
       <td>
       <% donation.donation_items.each do |donation_item| %>
-        <%= donation_item.family_description %></br>
+          <%= pluralize(donation_item.quantity, donation_item.need_item.need.name) %></br>
       <% end %>
       </td>
-      <td>
-      <% donation.donation_items.each do |donation_item| %>
-          <%= donation_item.quantity %>
-          <%= donation_item.name %></br>
-      <% end %>
-      </td>
+      <td><%= number_to_currency(donation.total) %></td>
     </tr>
   <% end %>
+</div>
 </table>
+<a href="/dashboard" button type="button" class="btn btn-info">Back to Dashboard</button>

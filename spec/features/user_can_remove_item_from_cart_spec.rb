@@ -3,34 +3,26 @@ require 'rails_helper'
 
 RSpec.feature "user can remove item from cart" do
   scenario "items is removed" do
-    nationality = Nationality.create(photo_path: "x", info_link: "x", greeting: "x", name: "Somali")
 
-    family = Family.create(first_name: "First1", last_name: "Last1", arrival_date: 10.days.from_now, donation_deadline: 5.days.from_now, nationality: nationality, num_married_adults: 2, num_unmarried_adults: 0, num_children_over_two: 2, num_children_under_two: 0)
+    item = create(:future_need_item)
+    recipient = item.recipient
+    charity = recipient.charity
 
-    Supply.create(name: "Dresser", value: 50.0, description: "New or used.  Used must be in good condition.", multiplier_type: "adult")
+    visit charity_recipient_path(charity.slug, recipient)
 
-    supply = family.create_supply_items
-
-    visit family_path(family)
-
-    within(".Dresser") do
-      select  1, from: "supply_item[quantity]"
+    within(".#{item.name}") do
+      select  1, from: "need_item[quantity]"
       find(:button, "add to cart").click
     end
 
     visit cart_index_path
-    expect(page).to have_content("Total: $50.00")
+    expect(page).to have_content("Total: $#{item.price}0")
 
-    expect(page).to have_content("Dresser")
+    expect(page).to have_content("#{item.name}")
     click_on("Remove")
 
-    expect(page).to have_content("Successfully deleted Dresser")
+    expect(page).to have_content("Successfully deleted #{item.name}")
     expect(page).to have_content("There are no items in your cart")
-
-
-    click_on("Dresser")
-
-    expect(current_path).to eq(family_path(family))
   end
 
 end
