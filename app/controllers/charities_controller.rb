@@ -23,6 +23,7 @@ class CharitiesController < ApplicationController
   end
 
   def create
+    # byebug
     @charity = Charity.new(charity_params)
     if @charity.save
       @charity.create_charity_owner(current_user)

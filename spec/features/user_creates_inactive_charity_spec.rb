@@ -1,7 +1,7 @@
 require 'rails_helper'
 
 RSpec.feature "user can create an inactive charity for approval and is assigned business owner role" do
-  scenario "business admin can add recipient" do
+  scenario "user creates a charity" do
     user = create(:user)
     allow_any_instance_of(ApplicationController).to receive(:current_user).and_return(user)
     cause1, cause2 = create_list(:cause, 2)
@@ -12,9 +12,9 @@ RSpec.feature "user can create an inactive charity for approval and is assigned 
     fill_in "Name", with: "New Charity"
     fill_in "Tagline", with: "New Charity Tagline"
     fill_in "Description", with: "New Charity Description"
+    expect(page).to have_select("causes_charities[cause_id]", options: [cause1.name, cause2.name])
+    select cause1.name, from: "causes_charities[cause_id]"
 
-    expect(page).to have_select("charity[cause_id]", options: [cause1.name, cause2.name])
-    select cause1.name, from: "charity[cause_id]"
     click_on "Submit Charity"
 
     expect(current_path).to eq(dashboard_path)
@@ -23,9 +23,7 @@ RSpec.feature "user can create an inactive charity for approval and is assigned 
     click_on "Charity Dashboard"
 
     expect(current_path).to eq(admin_charity_dashboard_path(charity.slug))
-
     expect(page).to have_content("New Charity")
-    expect(page).to have_content("New Charity Tagline")
     expect(page).to have_content(cause1.name)
     expect(page).to have_content("Inactive")
 
@@ -34,11 +32,16 @@ RSpec.feature "user can create an inactive charity for approval and is assigned 
   scenario "inactive charity is not available to user" do
 
     user = create(:user)
+    cause1, cause2 = create_list(:cause, 2)
     allow_any_instance_of(ApplicationController).to receive(:current_user).and_return(user)
     visit new_charity_path
     fill_in "Name", with: "Another Charity"
-    fill_in "Description", with: "Another Charity Description"
+    fill_in "Tagline", with: "New Charity Tagline"
+    fill_in "Description", with: "New Charity Description"
+
+    select cause1.name, from: "causes_charities[cause_id]"
     click_on "Submit Charity"
+
     charity = Charity.find_by(name: "Another Charity")
 
     expect(charity.status.name).to eq("Inactive")
