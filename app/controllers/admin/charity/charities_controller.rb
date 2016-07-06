@@ -19,13 +19,7 @@ class Admin::Charity::CharitiesController <ApplicationController
 
 
   def charity_params
-  params.require(:charity).permit(:name, :description, :charity_photo, :tagline, :causes_charities)
+    params.require(:charity).permit(:name, :description,:slug, :status_id, :charity_photo_file_name, :tagline)
   end
-
-  def causes_charities_params
-  params.require(:causes_charities).permit(:cause_id)
-  end
-
-
 
 end

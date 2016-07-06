@@ -7,7 +7,6 @@ class Admin::Charity::CausesCharitiesController < Admin::BaseController
   end
 
   def create
-    byebug
     @charity = Charity.find_by(slug: params[:charity_slug])
     @cause_charity = @charity.causes_charities.new(causes_charity_params)
     if @cause_charity.save
