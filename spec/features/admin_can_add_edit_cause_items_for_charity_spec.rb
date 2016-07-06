@@ -37,37 +37,4 @@ RSpec.feature "admin can add cause items for charity" do
 
   end
 
-  scenario "admin deletes cause items" do
-    role = Role.find_by(name: "Business Admin")
-    user = create(:user)
-    charity = create(:charity)
-    cause = create(:cause)
-    charity.causes_charities.create(charity: charity, cause: cause)
-
-    user_role = UserRole.create(role_id: role.id,
-                                user_id: user.id,
-                                charity_id: charity.id)
-
-    allow_any_instance_of(ApplicationController).to receive(:current_user).and_return( user )
-
-    expect(charity.causes.count).to eq(1)
-
-    visit admin_charity_dashboard_path(charity.slug)
-
-    within(".causes") do
-      expect(page).to have_content("test cause")
-      click_on "Delete Cause"
-    end
-
-    expect(current_path).to eq(admin_charity_dashboard_path(charity.slug))
-
-    expect(charity.cuases.count).to eq()
-
-    within(".causes") do
-      expect(page).to_not have_content("test cause")
-    end
-
-  end
-
-
 end
